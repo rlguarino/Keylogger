@@ -1,6 +1,0 @@
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\bin\Debug\HookKeylogger.exe.config
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\bin\Debug\HookKeylogger.exe
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\bin\Debug\HookKeylogger.pdb
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\obj\Debug\HookKeylogger.csprojResolveAssemblyReference.cache
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\obj\Debug\HookKeylogger.exe
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\obj\Debug\HookKeylogger.pdb
