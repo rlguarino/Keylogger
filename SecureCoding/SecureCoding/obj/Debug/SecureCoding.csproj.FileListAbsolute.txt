@@ -1,9 +1,0 @@
-c:\users\kat_r_000\documents\visual studio 2015\Projects\SecureCoding\SecureCoding\bin\Debug\SecureCoding.exe.config
-c:\users\kat_r_000\documents\visual studio 2015\Projects\SecureCoding\SecureCoding\bin\Debug\SecureCoding.exe
-c:\users\kat_r_000\documents\visual studio 2015\Projects\SecureCoding\SecureCoding\bin\Debug\SecureCoding.pdb
-c:\users\kat_r_000\documents\visual studio 2015\Projects\SecureCoding\SecureCoding\obj\Debug\SecureCoding.csprojResolveAssemblyReference.cache
-c:\users\kat_r_000\documents\visual studio 2015\Projects\SecureCoding\SecureCoding\obj\Debug\SecureCoding.exe
-c:\users\kat_r_000\documents\visual studio 2015\Projects\SecureCoding\SecureCoding\obj\Debug\SecureCoding.pdb
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\SecureCoding\SecureCoding\bin\Debug\SecureCoding.exe.config
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\SecureCoding\SecureCoding\obj\Debug\SecureCoding.exe
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\SecureCoding\SecureCoding\obj\Debug\SecureCoding.pdb
