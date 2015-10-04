@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace HooksTutorial
+namespace Hooks
 {
 
     class Program

