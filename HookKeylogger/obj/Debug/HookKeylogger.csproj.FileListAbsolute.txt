@@ -1,6 +1,6 @@
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\bin\Debug\Windows Printer Discovery Service.exe.config
 C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\obj\Debug\HookKeylogger.csprojResolveAssemblyReference.cache
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\bin\Debug\Windows Printer Discovery Service.exe
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\bin\Debug\Windows Printer Discovery Service.pdb
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\obj\Debug\Windows Printer Discovery Service.exe
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\obj\Debug\Windows Printer Discovery Service.pdb
+C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\bin\Debug\HookKeyLogger.exe.config
+C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\bin\Debug\HookKeyLogger.exe
+C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\bin\Debug\HookKeyLogger.pdb
+C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\obj\Debug\HookKeyLogger.exe
+C:\Users\kat_r_000\Documents\GitHub\Keylogger\HookKeylogger\obj\Debug\HookKeyLogger.pdb
