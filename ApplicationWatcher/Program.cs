@@ -54,6 +54,10 @@ namespace ApplicationWatcher
         //    Console.Read();
         //}
         private static string locationExe = "HookKeyLogger.exe";
+
+        ///<summary>
+        ///Monitor the WMI to see when processes start and stop.
+        ///</summary>
         public static void Main()
         {
             ManagementEventWatcher startWatch = new ManagementEventWatcher(
@@ -69,6 +73,9 @@ namespace ApplicationWatcher
             startWatch.Stop();
             stopWatch.Stop();
         }
+        ///<summary>
+        ///Check that the process is active.
+        ///</summary>
         private static bool isActive(string name)
         {
             foreach (Process clsProcess in Process.GetProcesses())
@@ -81,11 +88,17 @@ namespace ApplicationWatcher
             return false;
         }
 
+        ///<summary>
+        ///See that a process has stopped.
+        ///</summary>
         static void stopWatch_EventArrived(object sender, EventArrivedEventArgs e)
         {
             Console.WriteLine("Process stopped: {0}", e.NewEvent.Properties["ProcessName"].Value);
         }
 
+        ///<summary>
+        ///See that a process has started.
+        ///</summary>
         private static void startWatch_EventArrived(object sender, EventArrivedEventArgs e)
         {
             //Console.WriteLine("Process started: {0}", e.NewEvent.Properties["ProcessName"].Value);

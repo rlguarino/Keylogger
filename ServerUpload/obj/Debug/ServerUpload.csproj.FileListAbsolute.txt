@@ -3,3 +3,4 @@ C:\Users\kat_r_000\Documents\GitHub\Keylogger\ServerUpload\bin\Debug\ServerUploa
 C:\Users\kat_r_000\Documents\GitHub\Keylogger\ServerUpload\bin\Debug\ServerUpload.pdb
 C:\Users\kat_r_000\Documents\GitHub\Keylogger\ServerUpload\obj\Debug\ServerUpload.exe
 C:\Users\kat_r_000\Documents\GitHub\Keylogger\ServerUpload\obj\Debug\ServerUpload.pdb
+C:\Users\kat_r_000\Documents\GitHub\Keylogger\ServerUpload\obj\Debug\ServerUpload.csprojResolveAssemblyReference.cache
