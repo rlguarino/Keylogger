@@ -8,7 +8,9 @@ namespace Hooks
 
     class Program
     {
-
+        ///<summary>
+        ///This starts the keylogger.
+        ///</summary>
         static void Main(string[] args)
         {
             var handle = GetConsoleWindow();

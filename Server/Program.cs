@@ -10,6 +10,9 @@ namespace Server
 {
     class Program
     {
+        ///<summary>
+        ///Starts the listener for the server.
+        ///</summary>
         public static void Main()
         {
             TcpListener server = null;

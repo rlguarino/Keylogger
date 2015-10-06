@@ -10,7 +10,9 @@ namespace ServerUpload
 {
     class Program
     {
-
+        ///<summary>
+        ///This connects to the server.
+        ///</summary>
         static void Connect(String server, String message)
         {
             try
