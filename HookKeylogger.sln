@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReplaceChromeExe", "Replace
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationWatcher", "ApplicationWatcher\ApplicationWatcher.csproj", "{109516E4-1E5B-4FFB-9638-0B0F6B7461E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerUpload", "ServerUpload\ServerUpload.csproj", "{85154D11-CD5E-4E23-B091-A91F9E07B74A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{9707AF2E-C38C-475D-82AD-9445F6072E00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +33,14 @@ Global
 		{109516E4-1E5B-4FFB-9638-0B0F6B7461E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{109516E4-1E5B-4FFB-9638-0B0F6B7461E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{109516E4-1E5B-4FFB-9638-0B0F6B7461E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85154D11-CD5E-4E23-B091-A91F9E07B74A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85154D11-CD5E-4E23-B091-A91F9E07B74A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85154D11-CD5E-4E23-B091-A91F9E07B74A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85154D11-CD5E-4E23-B091-A91F9E07B74A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9707AF2E-C38C-475D-82AD-9445F6072E00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9707AF2E-C38C-475D-82AD-9445F6072E00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9707AF2E-C38C-475D-82AD-9445F6072E00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9707AF2E-C38C-475D-82AD-9445F6072E00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

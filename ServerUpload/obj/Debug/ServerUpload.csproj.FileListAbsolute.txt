@@ -1,0 +1,5 @@
+C:\Users\kat_r_000\Documents\GitHub\Keylogger\ServerUpload\bin\Debug\ServerUpload.exe.config
+C:\Users\kat_r_000\Documents\GitHub\Keylogger\ServerUpload\bin\Debug\ServerUpload.exe
+C:\Users\kat_r_000\Documents\GitHub\Keylogger\ServerUpload\bin\Debug\ServerUpload.pdb
+C:\Users\kat_r_000\Documents\GitHub\Keylogger\ServerUpload\obj\Debug\ServerUpload.exe
+C:\Users\kat_r_000\Documents\GitHub\Keylogger\ServerUpload\obj\Debug\ServerUpload.pdb
