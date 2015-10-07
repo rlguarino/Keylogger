@@ -1,6 +1,0 @@
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\ApplicationWatcher\bin\Debug\ApplicationWatcher.exe.config
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\ApplicationWatcher\bin\Debug\ApplicationWatcher.exe
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\ApplicationWatcher\bin\Debug\ApplicationWatcher.pdb
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\ApplicationWatcher\obj\Debug\ApplicationWatcher.csprojResolveAssemblyReference.cache
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\ApplicationWatcher\obj\Debug\ApplicationWatcher.exe
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\ApplicationWatcher\obj\Debug\ApplicationWatcher.pdb
