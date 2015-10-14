@@ -10,6 +10,6 @@ message KeyPress {
   int64  timestamp = 3; // Unix timestamp milliseconds. (UTC)
 }
 
-message KeyPressBuffer{
+message KeyPressSet{
   repeated KeyPress keys = 1;
 }
