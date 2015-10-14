@@ -62,7 +62,7 @@ namespace Hooks
             {
                 return buffer.ToString();
             }
-            return null;
+            return "";
         }
 
         ///<summary>
