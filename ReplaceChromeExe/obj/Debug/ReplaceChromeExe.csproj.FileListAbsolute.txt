@@ -1,5 +1,0 @@
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\ReplaceChromeExe\bin\Debug\ReplaceChromeExe.exe.config
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\ReplaceChromeExe\bin\Debug\ReplaceChromeExe.exe
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\ReplaceChromeExe\bin\Debug\ReplaceChromeExe.pdb
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\ReplaceChromeExe\obj\Debug\ReplaceChromeExe.exe
-C:\Users\kat_r_000\Documents\GitHub\Keylogger\ReplaceChromeExe\obj\Debug\ReplaceChromeExe.pdb

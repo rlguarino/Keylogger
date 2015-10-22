@@ -1,0 +1,15 @@
+﻿syntax = "proto3";
+
+package base;
+
+option csharp_namespace = "HookKeylogger.Base";
+
+message KeyPress {
+  int32 key = 1; // Keypress keycode. See the Keys enum for values.
+  string active_program = 2; // String of the active window at the time of this keypress.
+  int64  timestamp = 3; // Unix timestamp milliseconds. (UTC)
+}
+
+message KeyPressSet{
+  repeated KeyPress keys = 1;
+}
