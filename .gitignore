@@ -13,5 +13,5 @@ obj/
 *.bak
 
 Thumbs.db
-*/packages/
-*/Packages/
+packages/
+Packages/
