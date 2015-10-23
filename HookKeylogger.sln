@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HookKeylogger", "HookKeylogger\HookKeylogger.csproj", "{BDE22BFA-EE6F-44A3-8B86-339CB16F35F2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EEDB797D-711A-440E-917F-D00B3BB8482B}"
-	ProjectSection(SolutionItems) = preProject
-		README.txt = README.txt
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReplaceChromeExe", "ReplaceChromeExe\ReplaceChromeExe.csproj", "{D3D04C5F-3D2F-49A6-8E7A-F72ABC1CCEFF}"
 EndProject
@@ -20,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base", "Base\Base.csproj", "{62A334F9-C3F8-475D-BD5F-DC9DA5CA0722}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerProxy", "ServerProxy\ServerProxy.csproj", "{3A2565E5-C2C6-43AC-A410-1A230A7828F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeypressAggregator", "KeypressAggregator\KeypressAggregator.csproj", "{8E3783EC-F8A4-4A05-8429-8FBF5E9D1A2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,10 +49,10 @@ Global
 		{62A334F9-C3F8-475D-BD5F-DC9DA5CA0722}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62A334F9-C3F8-475D-BD5F-DC9DA5CA0722}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62A334F9-C3F8-475D-BD5F-DC9DA5CA0722}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3A2565E5-C2C6-43AC-A410-1A230A7828F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A2565E5-C2C6-43AC-A410-1A230A7828F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3A2565E5-C2C6-43AC-A410-1A230A7828F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A2565E5-C2C6-43AC-A410-1A230A7828F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E3783EC-F8A4-4A05-8429-8FBF5E9D1A2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E3783EC-F8A4-4A05-8429-8FBF5E9D1A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E3783EC-F8A4-4A05-8429-8FBF5E9D1A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E3783EC-F8A4-4A05-8429-8FBF5E9D1A2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
