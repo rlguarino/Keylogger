@@ -3,7 +3,7 @@
 package rpc;
 
 option csharp_namespace = "HookKeylogger.UploadProxy.Rpc";
-import "server/messages.proto";
+import "Server/messages.proto";
 
 message SendRequest{
 	types.CI ci = 1;

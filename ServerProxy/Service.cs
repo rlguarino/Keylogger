@@ -21,7 +21,7 @@ namespace HookKeylogger.UploadProxy.Rpc {
     static Service() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChlTZXJ2ZXJQcm94eS9zZXJ2aWNlLnByb3RvEgNycGMaFXNlcnZlci9tZXNz", 
+            "ChlTZXJ2ZXJQcm94eS9zZXJ2aWNlLnByb3RvEgNycGMaFVNlcnZlci9tZXNz", 
             "YWdlcy5wcm90byIkCgtTZW5kUmVxdWVzdBIVCgJjaRgBIAEoCzIJLnR5cGVz", 
             "LkNJIlUKDFNlbmRSZXNwb25zZRIoCgZzdGF0dXMYASABKA4yGC5ycGMuU2Vu", 
             "ZFJlc3BvbnNlLlN0YXR1cyIbCgZTdGF0dXMSBgoCT0sQABIJCgVFUlJPUhAB", 
