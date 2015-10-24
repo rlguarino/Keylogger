@@ -7,15 +7,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using Grpc.Core;
 
-namespace HookKeylogger.ServerProxy.Rpc {
-  public static class ServerProxy
+namespace HookKeylogger.UploadProxy.Rpc {
+  public static class UploadProxy
   {
-    static readonly string __ServiceName = "proxy.ServerProxy";
+    static readonly string __ServiceName = "rpc.UploadProxy";
 
-    static readonly Marshaller<global::HookKeylogger.ServerProxy.Rpc.SendRequest> __Marshaller_SendRequest = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::HookKeylogger.ServerProxy.Rpc.SendRequest.Parser.ParseFrom);
-    static readonly Marshaller<global::HookKeylogger.ServerProxy.Rpc.SendResponse> __Marshaller_SendResponse = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::HookKeylogger.ServerProxy.Rpc.SendResponse.Parser.ParseFrom);
+    static readonly Marshaller<global::HookKeylogger.UploadProxy.Rpc.SendRequest> __Marshaller_SendRequest = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::HookKeylogger.UploadProxy.Rpc.SendRequest.Parser.ParseFrom);
+    static readonly Marshaller<global::HookKeylogger.UploadProxy.Rpc.SendResponse> __Marshaller_SendResponse = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::HookKeylogger.UploadProxy.Rpc.SendResponse.Parser.ParseFrom);
 
-    static readonly Method<global::HookKeylogger.ServerProxy.Rpc.SendRequest, global::HookKeylogger.ServerProxy.Rpc.SendResponse> __Method_SendCi = new Method<global::HookKeylogger.ServerProxy.Rpc.SendRequest, global::HookKeylogger.ServerProxy.Rpc.SendResponse>(
+    static readonly Method<global::HookKeylogger.UploadProxy.Rpc.SendRequest, global::HookKeylogger.UploadProxy.Rpc.SendResponse> __Method_SendCi = new Method<global::HookKeylogger.UploadProxy.Rpc.SendRequest, global::HookKeylogger.UploadProxy.Rpc.SendResponse>(
         MethodType.Unary,
         __ServiceName,
         "SendCi",
@@ -25,46 +25,46 @@ namespace HookKeylogger.ServerProxy.Rpc {
     // service descriptor
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
-      get { return global::HookKeylogger.ServerProxy.Rpc.Service.Descriptor.Services[0]; }
+      get { return global::HookKeylogger.UploadProxy.Rpc.Service.Descriptor.Services[0]; }
     }
 
     // client interface
-    public interface IServerProxyClient
+    public interface IUploadProxyClient
     {
-      global::HookKeylogger.ServerProxy.Rpc.SendResponse SendCi(global::HookKeylogger.ServerProxy.Rpc.SendRequest request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken));
-      global::HookKeylogger.ServerProxy.Rpc.SendResponse SendCi(global::HookKeylogger.ServerProxy.Rpc.SendRequest request, CallOptions options);
-      AsyncUnaryCall<global::HookKeylogger.ServerProxy.Rpc.SendResponse> SendCiAsync(global::HookKeylogger.ServerProxy.Rpc.SendRequest request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken));
-      AsyncUnaryCall<global::HookKeylogger.ServerProxy.Rpc.SendResponse> SendCiAsync(global::HookKeylogger.ServerProxy.Rpc.SendRequest request, CallOptions options);
+      global::HookKeylogger.UploadProxy.Rpc.SendResponse SendCi(global::HookKeylogger.UploadProxy.Rpc.SendRequest request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken));
+      global::HookKeylogger.UploadProxy.Rpc.SendResponse SendCi(global::HookKeylogger.UploadProxy.Rpc.SendRequest request, CallOptions options);
+      AsyncUnaryCall<global::HookKeylogger.UploadProxy.Rpc.SendResponse> SendCiAsync(global::HookKeylogger.UploadProxy.Rpc.SendRequest request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken));
+      AsyncUnaryCall<global::HookKeylogger.UploadProxy.Rpc.SendResponse> SendCiAsync(global::HookKeylogger.UploadProxy.Rpc.SendRequest request, CallOptions options);
     }
 
     // server-side interface
-    public interface IServerProxy
+    public interface IUploadProxy
     {
-      Task<global::HookKeylogger.ServerProxy.Rpc.SendResponse> SendCi(global::HookKeylogger.ServerProxy.Rpc.SendRequest request, ServerCallContext context);
+      Task<global::HookKeylogger.UploadProxy.Rpc.SendResponse> SendCi(global::HookKeylogger.UploadProxy.Rpc.SendRequest request, ServerCallContext context);
     }
 
     // client stub
-    public class ServerProxyClient : ClientBase, IServerProxyClient
+    public class UploadProxyClient : ClientBase, IUploadProxyClient
     {
-      public ServerProxyClient(Channel channel) : base(channel)
+      public UploadProxyClient(Channel channel) : base(channel)
       {
       }
-      public global::HookKeylogger.ServerProxy.Rpc.SendResponse SendCi(global::HookKeylogger.ServerProxy.Rpc.SendRequest request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public global::HookKeylogger.UploadProxy.Rpc.SendResponse SendCi(global::HookKeylogger.UploadProxy.Rpc.SendRequest request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
         var call = CreateCall(__Method_SendCi, new CallOptions(headers, deadline, cancellationToken));
         return Calls.BlockingUnaryCall(call, request);
       }
-      public global::HookKeylogger.ServerProxy.Rpc.SendResponse SendCi(global::HookKeylogger.ServerProxy.Rpc.SendRequest request, CallOptions options)
+      public global::HookKeylogger.UploadProxy.Rpc.SendResponse SendCi(global::HookKeylogger.UploadProxy.Rpc.SendRequest request, CallOptions options)
       {
         var call = CreateCall(__Method_SendCi, options);
         return Calls.BlockingUnaryCall(call, request);
       }
-      public AsyncUnaryCall<global::HookKeylogger.ServerProxy.Rpc.SendResponse> SendCiAsync(global::HookKeylogger.ServerProxy.Rpc.SendRequest request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public AsyncUnaryCall<global::HookKeylogger.UploadProxy.Rpc.SendResponse> SendCiAsync(global::HookKeylogger.UploadProxy.Rpc.SendRequest request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
         var call = CreateCall(__Method_SendCi, new CallOptions(headers, deadline, cancellationToken));
         return Calls.AsyncUnaryCall(call, request);
       }
-      public AsyncUnaryCall<global::HookKeylogger.ServerProxy.Rpc.SendResponse> SendCiAsync(global::HookKeylogger.ServerProxy.Rpc.SendRequest request, CallOptions options)
+      public AsyncUnaryCall<global::HookKeylogger.UploadProxy.Rpc.SendResponse> SendCiAsync(global::HookKeylogger.UploadProxy.Rpc.SendRequest request, CallOptions options)
       {
         var call = CreateCall(__Method_SendCi, options);
         return Calls.AsyncUnaryCall(call, request);
@@ -72,16 +72,16 @@ namespace HookKeylogger.ServerProxy.Rpc {
     }
 
     // creates service definition that can be registered with a server
-    public static ServerServiceDefinition BindService(IServerProxy serviceImpl)
+    public static ServerServiceDefinition BindService(IUploadProxy serviceImpl)
     {
       return ServerServiceDefinition.CreateBuilder(__ServiceName)
           .AddMethod(__Method_SendCi, serviceImpl.SendCi).Build();
     }
 
     // creates a new client
-    public static ServerProxyClient NewClient(Channel channel)
+    public static UploadProxyClient NewClient(Channel channel)
     {
-      return new ServerProxyClient(channel);
+      return new UploadProxyClient(channel);
     }
 
   }

@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="gen.bat" />
     <None Include="packages.config" />
     <None Include="messages.proto" />
   </ItemGroup>

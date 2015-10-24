@@ -1,8 +1,8 @@
 ﻿syntax = "proto3";
 
-package proxy;
+package rpc;
 
-option csharp_namespace = "HookKeylogger.ServerProxy.Rpc";
+option csharp_namespace = "HookKeylogger.UploadProxy.Rpc";
 import "server/messages.proto";
 
 message SendRequest{
@@ -17,7 +17,7 @@ message SendResponse{
 	Status status = 1;
 }
 
-service ServerProxy {
+service UploadProxy {
 	//Interactions between the proxy client library and the running proxy process
 	rpc SendCi(SendRequest) returns (SendResponse) {}
 }

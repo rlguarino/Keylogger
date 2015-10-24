@@ -3,9 +3,9 @@ using System.Net;
 using System.Net.Sockets;
 using HookKeylogger.Base;
 using System.IO;
-using HookKeylogger.Server.Types;
+using HookKeylogger.AggergationServer.Types;
 
-namespace AggergationServer
+namespace HookKeylogger.AggergationServer
 {
     class Server
     {

