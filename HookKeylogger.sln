@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base", "Base\Base.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeypressAggregator", "KeypressAggregator\KeypressAggregator.csproj", "{8E3783EC-F8A4-4A05-8429-8FBF5E9D1A2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerProxy", "ServerProxy\ServerProxy.csproj", "{3A2565E5-C2C6-43AC-A410-1A230A7828F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{8E3783EC-F8A4-4A05-8429-8FBF5E9D1A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E3783EC-F8A4-4A05-8429-8FBF5E9D1A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E3783EC-F8A4-4A05-8429-8FBF5E9D1A2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A2565E5-C2C6-43AC-A410-1A230A7828F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A2565E5-C2C6-43AC-A410-1A230A7828F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A2565E5-C2C6-43AC-A410-1A230A7828F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A2565E5-C2C6-43AC-A410-1A230A7828F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
