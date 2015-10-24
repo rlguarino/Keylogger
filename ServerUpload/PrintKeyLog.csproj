@@ -60,6 +60,14 @@
       <Project>{62a334f9-c3f8-475d-bd5f-dc9da5ca0722}</Project>
       <Name>Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ServerProxy\UploadProxy.csproj">
+      <Project>{3a2565e5-c2c6-43ac-a410-1a230a7828f5}</Project>
+      <Name>UploadProxy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Server\Server.csproj">
+      <Project>{9707AF2E-C38C-475D-82AD-9445F6072E00}</Project>
+      <Name>Server</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

