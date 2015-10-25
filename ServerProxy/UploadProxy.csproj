@@ -74,6 +74,10 @@
     <None Include="service.proto" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Base\Base.csproj">
+      <Project>{62a334f9-c3f8-475d-bd5f-dc9da5ca0722}</Project>
+      <Name>Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Server\Server.csproj">
       <Project>{9707af2e-c38c-475d-82ad-9445f6072e00}</Project>
       <Name>Server</Name>
