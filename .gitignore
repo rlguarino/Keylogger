@@ -16,3 +16,6 @@ Thumbs.db
 packages/
 Packages/
 *.sln
+*.psess
+*.vsp
+*.vspx
