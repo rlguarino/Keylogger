@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HookKeylogger", "HookKeylogger\HookKeylogger.csproj", "{BDE22BFA-EE6F-44A3-8B86-339CB16F35F2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EEDB797D-711A-440E-917F-D00B3BB8482B}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReplaceChromeExe", "ReplaceChromeExe\ReplaceChromeExe.csproj", "{D3D04C5F-3D2F-49A6-8E7A-F72ABC1CCEFF}"
 EndProject
