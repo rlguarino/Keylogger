@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Windows Driver Foundation - User-mode Driver Framework Host Process")]
+[assembly: AssemblyTitle("CopyExe")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Windows Driver Foundation - User-mode Driver Framework Host Process")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("CopyExe")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("bde22bfa-ee6f-44a3-8b86-339cb16f35f2")]
+[assembly: Guid("017d911e-3ccb-41bc-a17b-1204ee2c49c7")]
 
 // Version information for an assembly consists of the following four values:
 //

