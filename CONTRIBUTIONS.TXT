@@ -1,1 +1,8 @@
 
+Ross Guarino
+ - Network Communication (between the target machine and server)
+ - Inter-Process Communication (between the hook and keypress aggregator)
+ - Process watchlist to prevent any communication when certain processes are active (wireshark)
+ - Batch and cache for messages sent to the server
+ - Initial keylogger hook
+ - Server to collect information from target machine and store it for the attacker

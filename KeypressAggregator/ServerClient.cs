@@ -10,6 +10,9 @@ using System.Threading;
 
 namespace KeypressAggregator
 {
+    /// <summary>
+    /// TCP Extension class to report the state of the connection.
+    /// </summary>
     public static class TCPExtension
     {
         /// <summary>
@@ -130,16 +133,17 @@ namespace KeypressAggregator
         }
 
         /// <summary>
-        /// Send the buffer to the server.
+        /// Send the buffer to the server but don't send the buffer to the server if a connection cannot
+        /// be made and its not safe to send don't try to send any data.
         /// </summary>
         private void send()
         {
-            if (!connect())
+            if (!safeToSend())
             {
                 return;
             }
 
-            if (!safeToSend())
+            if (!connect())
             {
                 return;
             }
@@ -149,6 +153,7 @@ namespace KeypressAggregator
             while(buffer.TryDequeue(out ci))
             {
                 try {
+                    // Actually send the message over the wire.
                     ci.WriteDelimitedTo(stream);
                 }
                 catch (SocketException)
@@ -161,9 +166,14 @@ namespace KeypressAggregator
             }
             stream.Flush();
 
+            // Closet down the client to shutdown the tcp connection and avoid any extra packets.
             disconnect();
         }
 
+        /// <summary>
+        /// Handel Send 
+        /// </summary>
+        /// <param name="ci"></param>
         public void Send(CI ci)
         {
             this.inq.Enqueue(ci);

