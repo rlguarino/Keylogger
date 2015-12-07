@@ -99,7 +99,7 @@ namespace Hooks
                     }
                     catch (RpcException e)
                     {
-                        Console.WriteLine("RPC Failed: " + e);
+                        //Console.WriteLine("RPC Failed: " + e);
                     }
                 }
             }

@@ -52,9 +52,10 @@ namespace KeypressAggregator
             sendThread.Start();
             server.Start();
 
-            Console.WriteLine("Key-Press Aggergation server listening on " +addr + ":" + port);
-            Console.WriteLine("Press any key to stop the aggregation server...");
-            Console.ReadKey();
+            //Console.WriteLine("Key-Press Aggergation server listening on " +addr + ":" + port);
+            //Console.WriteLine("Press any key to stop the aggregation server...");
+            //Console.ReadKey();
+            while (true) { System.Threading.Thread.Sleep(100000); }
 
             // Shutdown and wait for all threads to finish before exiting.
             aggergationThread.Abort();

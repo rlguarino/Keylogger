@@ -6,3 +6,11 @@ Ross Guarino
  - Batch and cache for messages sent to the server
  - Initial keylogger hook
  - Server to collect information from target machine and store it for the attacker
+
+Kyle Brennan
+ - Keylogger record time and process
+ - Manager process to restart processes when they are killed
+ - Initially set up server / client communication
+ - Attempted fake windows authorization signing
+ - Set up encryption for sending information over the network
+ 

