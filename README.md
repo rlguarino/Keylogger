@@ -36,21 +36,21 @@ See be the sub-modules for parameter requirements for starting the EXEs.
 It's recommended to start the KeyLogger using Visual Studio because it's hard to find to shutdown once the window disappears.
 
 You can also start these applications by executing the EXE in the /bin/Debug folder with the command line and give the appropriate command line arguments. 
-These EXEs must be started in the correct order KeyPressAggregator -> HookKeyLogger
-You can also only start the ApplicationWatcher which will start the other two EXEs. 
+These EXEs must be started together KeyPressAggregator + HookKeyLogger
+You can just start the ApplicationWatcher which will start the other two EXEs. 
 See be the sub-modules for parameter requirements for starting the EXEs.
 
 # Architecture
 
-There are Three main components of the project. Thee hook, the aggregator and the server.
+There are four main components of the project. This includes the hook, the aggregator, the manager and the server.
 
 The hook is responsible for intercepting the messages in the windows hook stack and forwarding the messages to the aggregation component.
 The aggregation component processes streams of incoming KeyPress messages and extracts useful information from them.
-It then sends the information extracted from the keypress stream to the server.'
-The server saves the extracted confidential information in a way that the attacker has access to.
+It then sends the information extracted from the keypress stream to the server.
+The server saves the extracted confidential information it receives from the infected target machine.
 The server is the only component that is running on an entirely attacker controlled machine and not a target's machine.
 
-The application watcher program is responsible for initially starting services and restarting services that were killed by the user. 
+The application watcher program is responsible for initially starting services and restarting services that are terminated. 
 
 ## Project Sub-modules:
 
@@ -60,10 +60,12 @@ This is for decrypting the encrypted files. We stopped using this when we switch
 
 ### Base
 
-A Class Library which container base classes to be used by other parts of the application.
+This is a Class Library which contains base classes to be used by other parts of the application.
 
 ### ApplicationWatcher
-PARAMETERS: This takes two parameters which are the location of the EXEs for the KeyPressAggregator and the HookKeyLogger.
+PARAMETERS: This takes three parameters.
+The first two parameters are the location of the EXEs for the KeyPressAggregator and the HookKeyLogger.
+The third parameter is the IP address of the attacker's server.
 
 This program starts up the KeypressAggregator and the HookKeyLogger. 
 If either of these processes get terminated, then it waits 10 seconds and restarts them.
@@ -73,18 +75,21 @@ This program must be run with Admin privileges.
 ### KeypressAggregator
 PARAMETERS: This takes one parameter which is the address of the server.
 
-A process which receives the incoming stream of KeyPress messages and aggregates them, extracting useful information and forwarding it to the server.
+This is a process which receives the incoming stream of KeyPress messages and aggregates them. 
+Useful information is extracted and forwarded to the server.
 Only characters which relate to possible passwords or credit cards are recorded.
 This process will not upload if a blacklisted program is active such has Wireshark.
 
 ### HookKeyLogger
 
-A program installs the keylogger hook that records keystrokes. The keystrokes and their metadata are forwarded to the KeypressAggergator by this program.
+This program installs the keylogger hook that records keystrokes. The keystrokes and their metadata are forwarded to the KeypressAggergator by this program.
 The data type, time, and application the characters were typed into are recorded.
 
 ### Server
 
-A console program that listens for incoming information and stores it permanently. This program exists on an attacker controlled machine, it provides the attacker with the extracted information.
+A console program that listens for incoming information and stores it permanently. 
+This program exists on an attacker controlled machine. 
+This program provides the attacker with the extracted information.
 
 ### Decrypt key
 key = w8v*e!d#

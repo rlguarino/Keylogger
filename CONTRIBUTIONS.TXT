@@ -17,4 +17,9 @@ Kyle Brennan
 Mike Peterson
  - Added KeypressAggregator which detects potential credit card matches and login credentials
  - Attempted to add browser text field matching to determine which text fields a user is typing in
+
+ All
+  - Worked on the README.md
+  - Worked on the report
+  - Worked on the presentation
  
