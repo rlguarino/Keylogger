@@ -14,3 +14,7 @@ Kyle Brennan
  - Attempted fake windows authorization signing
  - Set up encryption for sending information over the network
  
+Mike Peterson
+ - Added KeypressAggregator which detects potential credit card matches and login credentials
+ - Attempted to add browser text field matching to determine which text fields a user is typing in
+ 
